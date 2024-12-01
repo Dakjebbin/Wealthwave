@@ -33,7 +33,7 @@ const Navbar = () => {
      <img className='w-6 lg:hidden'  src={menu} alt="" />
      
       {/* for mobile devices */}
-  <nav className='bg-red-500 w-80 absolute right-0 top-0 h-screen sm:hidden '>
+  <nav className='bg-red-500 w-10 absolute right-0 top-0 h-screen sm:hidden '>
     
 <ul className='ml-10 mt-10 h-60 flex flex-col justify-between'>
 <Link to="/">
