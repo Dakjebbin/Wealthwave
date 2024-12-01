@@ -18,7 +18,7 @@ const Navbar = () => {
       <div className='logo-box'>
     <Link to="/"><img className='logo' src={logo} alt="" /></Link>
     </div>
-        <nav className='Navbar sm:hidden lg:block sm: hidden'>
+        <nav className='Navbar lg:block sm: hidden'>
           <ul>
             
             <a href="#home"><li><span style={{color: "#FE0000"}}>HOME</span></li></a>
