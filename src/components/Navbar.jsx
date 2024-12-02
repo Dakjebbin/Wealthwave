@@ -18,7 +18,7 @@ const Navbar = () => {
       <div className='logo-box'>
     <Link to="/"><img className='logo' src={logo} alt="" /></Link>
     </div>
-        <nav className='Navbar sm:hidden lg:block sm: hidden'>
+        <nav className='Navbar lg:block sm: hidden'>
           <ul>
             
             <a href="#home"><li><span style={{color: "#FE0000"}}>HOME</span></li></a>
@@ -33,7 +33,7 @@ const Navbar = () => {
      <img className='w-6 lg:hidden'  src={menu} alt="" />
      
       {/* for mobile devices */}
-  <nav className='bg-red-500 w-80 absolute right-0 top-0 h-screen lg:hidden '>
+     {/*  <nav className='bg-red-500 w-0 absolute right-0 top-0 h-screen sm: hidden '>
     
 <ul className='ml-10 mt-10 h-60 flex flex-col justify-between'>
 <Link to="/">
@@ -44,7 +44,7 @@ const Navbar = () => {
 </ul>
 <Link to="/login">
      <button className='login-button-1'>Login</button></Link>
-  </nav>
+  </nav> */}
   
     </header>
 
