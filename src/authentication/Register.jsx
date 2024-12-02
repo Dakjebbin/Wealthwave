@@ -66,7 +66,6 @@ const Register = () => {
     }). catch((error) => {
       if (error instanceof axios.AxiosError) {
        toast.error(
-          "the register error from axios => ",
           error?.response?.data
         );
       } else {

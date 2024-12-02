@@ -1,11 +1,11 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
-import { AlertCircle } from "lucide-react"
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "@/components/ui/alert"
+// import { AlertCircle } from "lucide-react"
+// import {
+//   Alert,
+//   AlertDescription,
+//   AlertTitle,
+// } from "@/components/ui/alert"
 
 
 
@@ -18,7 +18,7 @@ const useAuthContext = () => {
 const AuthContextProvider = ({ children }) => {    
     const baseUrl = import.meta.env.VITE_BASEURL
    const [userData, setUserData] = useState(null);
-   const [sessionExpired, setSessionExpired] = useState(false)
+//   const [sessionExpired, setSessionExpired] = useState(false)
 
    useEffect(() => {
     const validResponse = async () => {
@@ -27,7 +27,7 @@ const AuthContextProvider = ({ children }) => {
                 withCredentials: true,
             })
             if (!response?.data || !response?.data?.success) {
-              setSessionExpired(true) 
+  //            setSessionExpired(true) 
               setUserData(null)
               return;
               }
@@ -35,14 +35,14 @@ const AuthContextProvider = ({ children }) => {
               if (response?.data?.success) {
                 
                 setUserData(response?.data?.user);
-                setSessionExpired(false);
+    //            setSessionExpired(false);
               }
             
         } catch (error) {
             if (error instanceof axios.AxiosError) {
               if (error?.response?.data) {
                 console.log("No session => ", error?.response?.data);
-                setSessionExpired(true); 
+      //          setSessionExpired(true); 
                 setUserData(null)
               }
               } else {
@@ -52,21 +52,12 @@ const AuthContextProvider = ({ children }) => {
     }
 
     validResponse();
-    const interval = setInterval(validResponse, 30000);
-    return () => clearInterval(interval);
-   }, []);  //eslint-disable-line
+    //const interval = setInterval(validResponse, 30000);
+    //return () => clearInterval(interval);
+   }, []);
 
     return(
         <AuthContext.Provider value={{userData}}>
-           {userData && sessionExpired && (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>
-            Your session has expired. Please log in again.
-          </AlertDescription>
-        </Alert>
-      )}
             {children}
         </AuthContext.Provider>
     );
