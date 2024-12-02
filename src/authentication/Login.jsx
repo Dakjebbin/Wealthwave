@@ -42,15 +42,22 @@ axios.defaults.withCredentials = true;
     setPassword('')
     window.location.assign("/dashboard");
    })
-  .catch((error) => {
-     if (error instanceof axios.AxiosError) {
-      //console.log('');
-    } if(error === 404) {
-      toast.error("Incorrect credentials") 
-    } if (error === 409) {
-      toast.error('Email or Password is incorrect')
+   .catch((error) => {
+    if (error.response) {
+      // Handle specific error codes
+      if (error.response.status === 404) {
+        toast.error('Email or Password is incorrect'); // Invalid credentials
+      } else if (error.response.status === 409) {
+        toast.error('Conflict error - Incorrect credentials or account issues'); // Conflict error (e.g., email already taken)
+      } else {
+        toast.error('An error occurred. Please try again later.'); // Generic error
+      }
+    } else if (error.request) {
+      toast.error('No response from server. Please check your internet connection.');
+    } else {
+      toast.error('An unexpected error occurred.');
     }
-  })
+  });
 }
   return (
     <div style={{marginTop:"60px"}}>
