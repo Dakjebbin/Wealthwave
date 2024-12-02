@@ -45,10 +45,10 @@ axios.defaults.withCredentials = true;
   .catch((error) => {
      if (error instanceof axios.AxiosError) {
       //console.log('');
-    } if(error === 404 || error) {
-      const errorMessage =  error.message 
+    } if(error === 404) {
+      const errorMessage = error.message 
       toast.error(errorMessage) 
-    } if (error === 409 || error) {
+    } if (error === 409) {
       toast.error('Email or Password is incorrect')
     }
   })
