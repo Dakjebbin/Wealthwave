@@ -48,7 +48,9 @@ axios.defaults.withCredentials = true;
     } if(error === 404 || error) {
       const errorMessage =  error.message 
       toast.error(errorMessage) 
-    } 
+    } if (error === 409 || error) {
+      toast.error('Email or Password is incorrect')
+    }
   })
 }
   return (
