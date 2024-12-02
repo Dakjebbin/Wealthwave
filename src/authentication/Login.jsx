@@ -46,8 +46,7 @@ axios.defaults.withCredentials = true;
      if (error instanceof axios.AxiosError) {
       //console.log('');
     } if(error === 404) {
-      const errorMessage = error.message 
-      toast.error(errorMessage) 
+      toast.error("Incorrect credentials") 
     } if (error === 409) {
       toast.error('Email or Password is incorrect')
     }
