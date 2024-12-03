@@ -31,6 +31,8 @@ axios.defaults.withCredentials = true;
   }
 
   axios.post(`${baseUrl}/auth/login`, {
+    withCredentials: true
+  }, {
     email,
     password
   }).then((response) => {
@@ -48,7 +50,7 @@ axios.defaults.withCredentials = true;
       if (error.response.status === 404) {
         toast.error('Email or Password is incorrect'); // Invalid credentials
       } else if (error.response.status === 409) {
-        toast.error('Conflict error - Incorrect credentials or account issues'); // Conflict error (e.g., email already taken)
+        toast.error('Incorrect credentials or account issues'); // Conflict error (e.g., email already taken)
       } else {
         toast.error('An error occurred. Please try again later.'); // Generic error
       }

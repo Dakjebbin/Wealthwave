@@ -6,8 +6,8 @@ export default function Layout({ children }) {
   return (
     <SidebarProvider>
       <AppSidebar/>
-      <main className='bg-slate-300 w-full'>
-        <SidebarTrigger />
+      <main>
+        <SidebarTrigger className='bg-slate-600' />
         {children}
       </main>
     </SidebarProvider>

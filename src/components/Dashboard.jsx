@@ -72,14 +72,14 @@ console.log("the state variable",transaction);
 
   return (
     <div>
-  <Layout >
+  <Layout>
 {userData && (
-        <div>
+        <div className='bg-green-400'>
           <div className='absolute right-0 flex items-center'>
           <span >Welcome {userData?.username}</span>
           <Avatar>
   <AvatarImage src="https://github.com/shadcn.png" />
-  <AvatarFallback>CN</AvatarFallback>
+  <AvatarFallback>WW</AvatarFallback>
 </Avatar>
           </div>
         
@@ -90,12 +90,6 @@ console.log("the state variable",transaction);
   <span></span>
 )}
          
-
-         
-          {/* <button onClick={handleLogout} className='bg-red-700 border-solid border-2'>
-            Log Out
-          </button>
-         */}
 
          <div>
           <h2>Transaction History</h2>
@@ -124,8 +118,12 @@ console.log("the state variable",transaction);
           ) }
           </div>
 
-
         </div>
+
+        )}
+
+        {userData === null && (
+        <p className='animate animate-pulse'>Loading...</p>
       )}
 </Layout>
     </div>

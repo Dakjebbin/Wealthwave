@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 // Menu items.
 const items = [
   {
-    title: "Home",
+    title: "Dashboard",
     url: "#",
     icon: Home,
   },
@@ -72,11 +72,11 @@ export function AppSidebar() {
   return (
     
     <Sidebar collapsible= "icon">
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+      <SidebarContent className = 'bg-orange-300 rounded-xl'>
+        <SidebarGroup >
+          <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu >
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
@@ -91,15 +91,14 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-
-
+      
+       <SidebarFooter>
         
-     
       <button onClick={handleLogout} className='bg-red-700 border-solid border-2'>
             Log Out
           </button>
-      </SidebarFooter>
+      </SidebarFooter>  
+
     </Sidebar>
   )
 }
