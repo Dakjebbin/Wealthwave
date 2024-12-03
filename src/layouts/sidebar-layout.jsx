@@ -5,15 +5,11 @@ import { AppSidebar } from "@/components/app-sidebar";
 export default function Layout({ children }) {
   return (
     <SidebarProvider>
-      <AppSidebar/>
-      <main>
+      <AppSidebar />
+      <main className="w-full">
         <SidebarTrigger className='bg-slate-600' />
         {children}
       </main>
     </SidebarProvider>
   );
 }
-
-// Layout.propTypes = {
-//   children: PropTypes.node.isRequired,  
-// };
