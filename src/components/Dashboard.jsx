@@ -44,24 +44,29 @@ console.log("the state variable",transaction);
     <div>
   <Layout>
 {userData && (
-        <div className='bg-green-400'>
-          <div className='absolute right-0 flex items-center'>
-          <span >Welcome {userData?.username}</span>
-          <Avatar>
-  <AvatarImage src="https://github.com/shadcn.png" />
-  <AvatarFallback>WW</AvatarFallback>
-</Avatar>
-          </div>
-        
-
+        <div>
+          <div className='flex justify-between'>
           {userData.status === "blocked" ? (
-  <span>Error Occurred. Please Contact Admin</span>
+            <span className='bg-red-500 max-w-96 text-center text-white px-4 py-2 rounded-lg text-lg font-semibold'>
+  Error Occurred. Please Contact Admin
+</span>
 ) : (
   <span></span>
 )}
-         
+     
+<div>
+          <span className='flex items-center mr-3' >Welcome {userData?.username}
+          <Avatar >
+  <AvatarImage src="https://github.com/shadcn.png" />
+  <AvatarFallback>WW</AvatarFallback>
+</Avatar>
+</span>
+</div>
+          </div>
+        
 
-         <div>
+           
+         <div className=' mt-7'>
           <h2>Transaction History</h2>
           {transaction.length === 0 ? (
                     <p>No Transactions</p>
@@ -95,10 +100,12 @@ console.log("the state variable",transaction);
         {userData === null && (
           <div>
         <p className='animate animate-pulse'>Loading...</p>
-        <span className='bg-red-500 w-full'>Error Occurred. Please Contact Admin</span>
+       
         </div>
       )}
+    
 </Layout>
+
     </div>
   )
 }
