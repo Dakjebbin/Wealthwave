@@ -31,10 +31,10 @@ axios.defaults.withCredentials = true;
   }
 
   axios.post(`${baseUrl}/auth/login`, {
-    withCredentials: true
-  }, {
     email,
     password
+  }, {
+    withCredentials: true
   }).then((response) => {
     
     if (response.data.success === true) {
