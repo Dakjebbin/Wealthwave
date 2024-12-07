@@ -4,16 +4,16 @@ import { assets } from '../assets/assest'
 const Wave = () => {
     
   return (
-    <main id="home">
-      <section className="bg-gradient-to-t bg-cover">
+    <section id="home">
+      <div className="bg-gradient-to-t bg-cover">
         <img 
           className="h-[250px] w-full object-cover rounded-xl sm:h-[400px] md:h-[400px]" // Ensures image covers the container without distortion
           src={assets.back} 
           alt="" 
         />
-      </section>
+      </div>
 
-      <section className="flex items-center m-auto flex-wrap justify-between mt-7">
+      <div className="flex items-center m-auto flex-wrap justify-between mt-7">
        
           <div className="leading-[.5] flex flex-wrap text-center flex-col font-restructure">
           <p>400+</p>
@@ -30,9 +30,9 @@ const Wave = () => {
           <p>Partners</p>
           </div>
         
-      </section>
+      </div>
 
-      <section>
+      <div>
     <p className="text-center font-bold text-3xl mt-10 text-flex text-ali">
     Flexible Digital and Affiliates Marketing Investment Options.
     </p>
@@ -40,8 +40,8 @@ const Wave = () => {
     Platform designed with more than 50 partners across Europe and America to provide high-quality 
     affiliate and digital marketing courses specifically for earning.
     </p>
-      </section>
-    </main>
+      </div>
+    </section>
   )
 }
 

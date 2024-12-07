@@ -7,7 +7,7 @@ import logo from "../assets/logo.jpg"
 const Navbar = () => {
 
   return (
-    <div className='app-update'>
+    <header className='app-update'>
     <header className='app'>
       <div className='logo-box'>
     <Link to="/"><img className='logo' src={logo} alt="" /></Link>
@@ -32,7 +32,7 @@ const Navbar = () => {
 
    
 
-    </div>
+    </header>
   )
 }
 

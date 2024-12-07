@@ -21,6 +21,19 @@
     flex: 1;
     padding: 20px;
     max-width: 600px; /* Limiting the width of the description */
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .description-2{
+    flex: 1;
+    padding: 20px;
+    max-width: 600px; /* Limiting the width of the description */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
 
@@ -28,7 +41,23 @@
     font-size: 1.2rem;
     line-height: 1.5;
     margin-bottom: 10px;
+    text-align: justify;
+    font-family: "Inter";
+    font-weight: 400;
   }
+  
+  
+  .description-2 p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    text-align: left;
+    font-family: "Inter";
+  }
+
+.expert p{
+  font-family: "Inter";
+}
 
   .image {
     flex: 1;
