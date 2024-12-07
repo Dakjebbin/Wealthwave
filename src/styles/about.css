@@ -59,6 +59,14 @@
   font-family: "Inter";
 }
 
+.expert{
+  transition: transform 0.8s ease;
+}
+
+.expert:hover{
+    transform: translateY(-10px);
+}
+
   .image {
     flex: 1;
     display: flex;
