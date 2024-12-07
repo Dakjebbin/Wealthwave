@@ -17,10 +17,7 @@ const AboutUs = () => {
             WealthWave is a digital learning experience focused on providing
             locally relevant opportunities that address unemployment and educational skill gabs.
             A revenue-sharing model where a third-party promotes a business's products or services 
-            in exchange for a commission or reward.  
-            It's a key part of modern digital marketing and can help businesses increase sales,
-             attract traffic, and improve brand awareness.
- 
+            in exchange for a commission or reward.
             </p>
             <p>
             Digital learning with Wealthwave allows young people to unlock their full potential, acquire new skills,
