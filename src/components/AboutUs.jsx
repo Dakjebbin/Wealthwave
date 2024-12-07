@@ -1,7 +1,7 @@
 import React from 'react' //eslint-disable-line
 import "../styles/about.css"
 import background from "../assets/background.jpg"
-import { image, image_3 } from '../assets/assest'
+
 
 
 const AboutUs = () => {
@@ -28,7 +28,7 @@ Wealth Wave offers many ways to invest on affiliate marketing and what you shoul
 
                <section className='about-grid'>
                <div className='image-2'>
-            <img className='img' src={image} alt="" />
+            <img className='img' src="" alt="" />
         </div>
                <div className='grid-1'>
         <h6 style={{marginLeft:"10px"}}>Affiliate Marketing</h6>
@@ -50,7 +50,7 @@ Wealth Wave offers many ways to invest on affiliate marketing and what you shoul
                 </div>
 
                 <div className='map-container'>
-                  <img className='map' src={image_3} alt="" />
+                  <img className='map' src="" alt="" />
                 </div>
                </section>
     </div>

@@ -6,62 +6,37 @@
     margin-top: 70px;
 }
 
-.wave h5{
- font-family: "Poppins", sans-serif;
-font-size: 32px;
-font-weight: 500;
-line-height: 48px;
-letter-spacing: 0.05em;
-color: #DB0000;
-}
-
-.wave h5 span{
-    color: #7B2F2F;
-}
-
-.wave h4{
-    font-family:"Poppins", sans-serif;
-font-size: 32px;
-font-weight: 400;
-line-height: 48px;
-letter-spacing: 0.1em;
-}
-
-.wave p{
+.font-restructure p{
     font-family: Inter;
-font-size: 15px;
+font-size: 19px;
 font-weight: 400;
-line-height: 18.15px;
-letter-spacing: 0.05em;
-}
-
-.register-button{
-    background: #FAC6C6;
-    border: none;
-    padding: 11px 50px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: "Poppins", sans-serif;
-font-size: 16px;
-font-weight: 700;
-line-height: 24px;
-letter-spacing: 0.1em;
 text-align: center;
-
-
+}
+.text-flex{
+    font-family: Inter;
 }
 
-.background-image{
-margin: auto;
-width: 90%;
+@media (max-width: 380px) {
+    .font-restructure p{
+        font-family: Inter;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
+    }
 
+    .text-flex{
+        font-family: Inter;
+        text-align: center;
+    }
+
+    .text-ali{
+        font-size: 22px;
+        line-height: 1.2;
+    }
+
+    .text-alimber{
+        font-size: 13px;
+        line-height: 1.3;
+    }
 }
 
-.img{
-    margin-top: 60px;
-    margin-bottom: 60px;
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-    border-radius: 15px;
-}

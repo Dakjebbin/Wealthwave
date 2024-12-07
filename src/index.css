@@ -99,3 +99,8 @@ a{
     @apply bg-background text-foreground;
     }
 }
+
+section{
+  width: 90%;
+  margin: auto;
+}

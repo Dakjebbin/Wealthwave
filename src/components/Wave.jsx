@@ -1,30 +1,48 @@
-import React from 'react' // eslint-disable-line 
 import "../styles/wave.css"
-import background from "../assets/background.jpg"
-import { Link } from 'react-router-dom'
+import { assets } from '../assets/assest'
 
 const Wave = () => {
     
   return (
-    <main >
+    <main id="home">
+      <section className="bg-gradient-to-t bg-cover">
+        <img 
+          className="h-[250px] w-full object-cover rounded-xl sm:h-[400px] md:h-[400px]" // Ensures image covers the container without distortion
+          src={assets.back} 
+          alt="" 
+        />
+      </section>
 
-        <section className='wave' id='home'>
-      <h5>  WEALTH <span>WAVE</span> </h5> 
-<h4>DIGITAL ONLINE AFFILIATE AGENCY</h4>
-<p>We provide high-quality affiliate and digital marketing courses.</p>
- <p>A platform to invest in professional development.</p>
-<p style={{color : "#B84E4E", paddingTop: "10px", paddingBottom: "30px"}}>Empower yourself and others through the power of choice</p>
-<Link to = "/register">
-<button className='register-button'>Get Started</button> </Link>
-        </section>
+      <section className="flex items-center m-auto flex-wrap justify-between mt-7">
+       
+          <div className="leading-[.5] flex flex-wrap text-center flex-col font-restructure">
+          <p>400+</p>
+          <p>Completed Projects</p>
+          </div>
+
+          <div className="leading-[.5] flex flex-wrap text-center flex-col font-restructure">
+          <p>100+</p>
+          <p>Courses</p>
+          </div>
+
+          <div className="leading-[.5] flex flex-wrap text-center flex-col font-restructure">
+          <p>200+</p>
+          <p>Partners</p>
+          </div>
         
-        <section className='background-image'>
-            <img className='img' src={background} alt="" />
-        </section>
+      </section>
 
-
+      <section>
+    <p className="text-center font-bold text-3xl mt-10 text-flex text-ali">
+    Flexible Digital and Affiliates Marketing Investment Options.
+    </p>
+    <p className="text-center text-base text-flex text-alimber">
+    Platform designed with more than 50 partners across Europe and America to provide high-quality 
+    affiliate and digital marketing courses specifically for earning.
+    </p>
+      </section>
     </main>
   )
 }
 
-export default Wave
+export default Wave;
