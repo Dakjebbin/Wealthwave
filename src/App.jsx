@@ -9,7 +9,7 @@ const App = () => {
    <main>
  <Wave/>
  <Courses/>
- {/* <AboutUs/> */}
+ <AboutUs/>
    </main>
   )
 }
