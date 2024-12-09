@@ -18,7 +18,7 @@ text-align: center;
 @media (max-width: 380px) {
     .font-restructure p{
         font-family: Inter;
-    font-size: 15px;
+    /* font-size: 17px; */
     font-weight: 400;
     text-align: center;
     }

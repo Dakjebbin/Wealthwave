@@ -75,24 +75,24 @@ useEffect(() => {
       <div className="flex items-center m-auto flex-wrap justify-between mt-7">
        
           <div className=" flex flex-wrap text-center flex-col font-restructure">
-          <p className="text-3xl">{isProject}+</p>
+          <p className="text-xl sm:text-3xl">{isProject}+</p>
           <p>Completed Projects</p>
           </div>
 
           <div className="flex flex-wrap text-center flex-col font-restructure">
-          <p className="text-3xl">{isCourses}+</p>
+          <p className="text-xl sm:text-3xl">{isCourses}+</p>
           <p>Courses</p>
           </div>
 
           <div className="flex flex-wrap text-center flex-col font-restructure">
-          <p className="text-3xl">{isPartner}+</p>
+          <p className="text-xl sm:text-3xl">{isPartner}+</p>
           <p>Partners</p>
           </div>
         
       </div>
 
       <div>
-    <p className="text-center font-bold text-3xl mt-10 text-flex text-ali">
+    <p className="text-center font-bold text-3xl mt-10 mb-5 text-flex text-ali">
     Flexible Digital and Affiliates Marketing Investment Options.
     </p>
     <p className="text-center text-base text-flex text-alimber">
