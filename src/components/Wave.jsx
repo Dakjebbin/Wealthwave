@@ -15,18 +15,18 @@ const Wave = () => {
 
       <div className="flex items-center m-auto flex-wrap justify-between mt-7">
        
-          <div className="leading-[.5] flex flex-wrap text-center flex-col font-restructure">
-          <p>400+</p>
+          <div className=" flex flex-wrap text-center flex-col font-restructure">
+          <p className="text-3xl">400+</p>
           <p>Completed Projects</p>
           </div>
 
-          <div className="leading-[.5] flex flex-wrap text-center flex-col font-restructure">
-          <p>100+</p>
+          <div className="flex flex-wrap text-center flex-col font-restructure">
+          <p className="text-3xl">100+</p>
           <p>Courses</p>
           </div>
 
-          <div className="leading-[.5] flex flex-wrap text-center flex-col font-restructure">
-          <p>200+</p>
+          <div className="flex flex-wrap text-center flex-col font-restructure">
+          <p className="text-3xl">200+</p>
           <p>Partners</p>
           </div>
         

@@ -16,7 +16,7 @@ const AboutUs = () => {
             <p>
             WealthWave is a digital learning experience focused on providing
             locally relevant opportunities that address unemployment and educational skill gabs.
-            A revenue-sharing model where a third-party promotes a business's products or services 
+            A revenue-sharing model where a third-party promotes a business&apos;s products or services 
             in exchange for a commission or reward.
             </p>
             <p>
@@ -80,6 +80,68 @@ const AboutUs = () => {
           administrators of small-cap funds,
         with $20million in assets under administration.
       </p>
+        </div>
+      </div>
+
+      <div className="flex flex-col mt-10 sm:flex-row">
+        <div className="bg-[#FFE6E4] flex-1 p-10">
+          <p className="font-bold text-[19px] my-text">
+          Wealth Wave is your 24/7 digital platform, optimized for all digital devices.
+          </p>
+          <p className="font-bold text-[19px] my-text">
+          Register now and Start earning
+          </p>
+        </div>
+        <div className="bg-[#EDA9A6] flex-1 p-10">
+          <p className="font-bold text-[19px] my-text">
+          Join our extensive partner network.
+        
+          </p>
+          
+        </div>
+      </div>
+
+      
+      <div className="hero">
+        <div className="hero-container">
+          <div className="description">
+            <p>
+            Why choose WealthWave?
+            </p>
+            <p>
+            Innovative investment opportunities 
+                offers many ways to invest and what you need to know for your professional development.
+            </p>
+          </div>
+          <div className="image">
+            <img
+              src={assets.why}
+              alt="Sagar's Photo"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="hero">
+        <div className="hero-container">
+        <div className="image">
+            <img
+              src={assets.support}
+              alt="Sagar's Photo"
+            />
+          </div>
+          <div className="description">
+            <h1 className="font-bold text-2xl pb-6">
+            Support our mission and partner with us!
+            </h1>
+            <p>
+            Our goal is to provide inclusive, accessible, relevant and safe digital and 
+            affiliate marketing in partner countries of German development cooperation.
+            We partner with companies and organizations from business, civil society, politics, 
+            international development cooperation and science to develop our course offering.
+            </p>
+          </div>
+          
         </div>
       </div>
     </section>

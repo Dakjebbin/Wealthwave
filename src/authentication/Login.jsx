@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import axios from "axios"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { assets } from '../assets/assest'
 
 
 
@@ -116,7 +117,7 @@ axios.defaults.withCredentials = true;
       </div>
 
       <div className="login-grid-2">
-        <img className='loginImage' src={image_2} alt="" />
+        <img className='loginImage' src={assets.loginImage} alt="" />
       </div>
       </div>
       <ToastContainer />

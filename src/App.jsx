@@ -2,6 +2,7 @@ import React from 'react' // eslint-disable-line
 import Wave from './components/Wave'
 import AboutUs from './components/AboutUs'
 import Courses from './components/Courses'
+import OurNumbers from './components/OurNumbers'
 
 
 const App = () => {
@@ -10,6 +11,7 @@ const App = () => {
  <Wave/>
  <Courses/>
  <AboutUs/>
+ <OurNumbers/>
    </main>
   )
 }
