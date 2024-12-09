@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import { assets } from "../assets/assest"
 
 
 const OurCourses = () => {
@@ -18,6 +19,24 @@ const OurCourses = () => {
         </div>
         
     </div>
+
+    <div className="hero">
+        <div className="hero-container">
+        <div className="image">
+            <img
+              src={assets.rectangle}
+              alt="Sagar's Photo"
+            />
+          </div>
+          <div className="description ">
+            <h1 className="font-bold text-2xl pb-6 bg-[#FE918C] p-5 rounded-lg">
+            Our goal is to provide inclusive, accessible, relevant and
+            safe digital and affiliate marketing in partner countries of German development cooperation
+            </h1>
+          </div>
+          
+        </div>
+      </div>
   </section>
   )
 }

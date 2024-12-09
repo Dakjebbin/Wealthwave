@@ -7,6 +7,7 @@ import about_image_2 from "./unsplash_FHnnjk1Yj7Y.png"
 import loginImage from "./Rectangle 13.png"
 import why from "./unsplash_BeVGrXEktIk.png"
 import support from "./Rectangle 55.png"
+import rectangle from "./Rectangle 64.png"
 
 export const assets = {
     back, 
@@ -17,5 +18,6 @@ export const assets = {
     about_image_2,
     loginImage,
     why,
-    support
+    support,
+    rectangle
 }
