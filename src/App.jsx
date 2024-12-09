@@ -3,6 +3,7 @@ import Wave from './components/Wave'
 import AboutUs from './components/AboutUs'
 import Courses from './components/Courses'
 import OurNumbers from './components/OurNumbers'
+import OurCourses from './components/OurCourses'
 
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
  <Courses/>
  <AboutUs/>
  <OurNumbers/>
+ <OurCourses/>
    </main>
   )
 }
