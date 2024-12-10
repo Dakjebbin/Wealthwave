@@ -1,4 +1,5 @@
 import back from './bac2.jpeg'
+import logo from "./logo.jpg"
 import books from "./twemoji_books.png"
 import earn from "./Vector.png"
 import time from "./typcn_time.png"
@@ -8,6 +9,8 @@ import loginImage from "./Rectangle 13.png"
 import why from "./unsplash_BeVGrXEktIk.png"
 import support from "./Rectangle 55.png"
 import rectangle from "./Rectangle 64.png"
+import menu_button from "./menu_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24 (1).svg";
+import close_btn from "./close_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24 (1).svg"
 
 export const assets = {
     back, 
@@ -19,5 +22,8 @@ export const assets = {
     loginImage,
     why,
     support,
-    rectangle
+    rectangle,
+    menu_button,
+    close_btn,
+    logo
 }
