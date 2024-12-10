@@ -116,7 +116,7 @@ axios.defaults.withCredentials = true;
       </div>
       </div>
 
-      <div className="login-grid-2">
+      <div className="login-grid-2 hidden md:block">
         <img className='loginImage' src={assets.loginImage} alt="" />
       </div>
       </div>

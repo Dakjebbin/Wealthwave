@@ -143,9 +143,10 @@ header{
 }
 
 @media (max-width: 1023px) {
-    
+  
 
-      .mobile-view {
+    .mobile-view.active {
         display: block;
+        
       }
 }
