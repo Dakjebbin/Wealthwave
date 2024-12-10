@@ -118,7 +118,7 @@ axios.defaults.withCredentials = true;
               </div>
                   </div>
                   
-                  <div className="image">
+                  <div className="image-login">
                     <img
                       src={assets.loginImage}
                       alt="Sagar's Photo"

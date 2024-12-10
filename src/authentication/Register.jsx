@@ -188,7 +188,7 @@ const Register = () => {
       </div>
                   </div>
                   
-                  <div className="image">
+                  <div className="image-login">
                     <img
                       src={assets.register}
                       alt="Sagar's Photo"

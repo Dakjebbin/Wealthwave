@@ -179,7 +179,7 @@ text-align: left;
 }
 
 @media (max-width:768px) {
-  .image{
+  .image-login{
     display: none;
   }
 }
