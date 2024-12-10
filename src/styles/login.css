@@ -35,7 +35,7 @@ line-height: 21.33px;
     cursor: pointer;
     margin-left: -30px; /* Adjust as needed */
     outline: none;
-    z-index: 100;
+   
   }
   
   .eye-button img {
