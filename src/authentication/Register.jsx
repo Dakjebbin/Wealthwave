@@ -1,6 +1,6 @@
-import React, { useState } from 'react' //eslint-disable-line
+import { useState } from 'react' 
 import "../styles/login.css"
-
+import "../styles/about.css"
 import eye from "../assets/eye.svg"
 import eyeOff from "../assets/eye-off.svg"
 import mail from "../assets/mail.svg"
@@ -9,6 +9,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { assets } from '../assets/assest'
+
 
 const Register = () => {
 
@@ -79,10 +81,12 @@ const Register = () => {
 
 
   return (
-    <div style={{marginTop:"60px"}}>
-      <div className='login-container'>
-        <div className='login-grid-1'>
-          <div>
+    <div>
+<div className="hero">
+                    <div className="hero-container">
+                      <div className="description">
+                        
+                      <div>
       <h3 className='welcome'>Welcome</h3>
       <p className='welcome-2'>Please Enter Your Details</p>
       
@@ -182,12 +186,17 @@ const Register = () => {
       </div>
 
       </div>
-      </div>
-
-      <div className="login-grid-2">
-        <img className='loginImage' src="" alt="" />
-      </div>
-      </div>
+                  </div>
+                  
+                  <div className="image">
+                    <img
+                      src={assets.register}
+                      alt="Sagar's Photo"
+                    />
+                  </div>
+                </div>
+              </div>
+      
       <ToastContainer />
     </div>
   )

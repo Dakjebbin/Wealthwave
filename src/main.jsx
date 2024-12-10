@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import TermsConditions from './components/Terms.jsx'
 import AuthContextProvider from './context/auth-context.jsx'
 import Sidebar from './components/Sidebar.jsx'
+import DashboardLayout from './layouts/DashboardLayout.jsx'
 
 
 
@@ -39,14 +40,12 @@ const router = createBrowserRouter([
       },
     ],
   },
- {
-  path: "/dashboard",
-  element: <Dashboard/>
- },{
-  path: "/sidebar",
-  element: <Sidebar/>
- }
-
+      {
+        path: "/dashboard",
+        element: <Sidebar/>,
+       
+      },
+     
   
 ])
 

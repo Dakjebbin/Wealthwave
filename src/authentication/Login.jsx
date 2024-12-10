@@ -9,6 +9,7 @@ import axios from "axios"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { assets } from '../assets/assest'
+import "../styles/about.css"
 
 
 
@@ -63,64 +64,69 @@ axios.defaults.withCredentials = true;
   });
 }
   return (
-    <div style={{marginTop:"60px"}}>
-      <div className='login-container'>
-        <div className='login-grid-1'>
-          <div>
-      <h3 className='welcome'>Welcome <span style={{color:"black"}}>Back</span></h3>
-      <p className='welcome-2'>Please Enter Your Details</p>
-      <form onSubmit={handleSubmit}>
+    <div> 
+        <div className="hero">
+                <div className="hero-container">
+                  <div className="description">
+                    
+                  <div className='login-grid-1'>
+                  <div>
+              <h3 className='welcome'>Welcome <span style={{color:"black"}}>Back</span></h3>
+              <p className='welcome-2'>Please Enter Your Details</p>
+              <form onSubmit={handleSubmit}>
 
+              <div className='email-container'>
+                <input 
+                type="email" 
+                placeholder='Email'
+                required 
+                value={email}
+                onChange={(e) => setEmail (e.target.value)}
+                className="password-input-box"
+                id="email" />
 
-        
-      
-      <div className='email-container'>
-        <input 
-        type="email" 
-        placeholder='Email'
-        required 
-        value={email}
-        onChange={(e) => setEmail (e.target.value)}
-        className="password-input-box"
-        id="email" />
-
-        <div className='absolut'>
-          <img src={mail} alt="" />
+                <div className='absolut'>
+                  <img src={mail} alt="" />
+                </div>
         </div>
-</div>
-<div className="password-container">
-                
-                <div className="password-input">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    id="password"
-                    required
-                    placeholder='Password'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="password-input-box"
-                  />
-                  <div className="eye-button" onClick={() => setShowPassword(!showPassword)}
-                    aria-label={showPassword ? "Hide password" : "Show password"}>
-                  <img src={showPassword ? eye : eyeOff} alt={showPassword ? "Hide password" : "Show password"} />
+        <div className="password-container">
+                        
+                        <div className="password-input">
+                          <input
+                            type={showPassword ? "text" : "password"}
+                            id="password"
+                            required
+                            placeholder='Password'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="password-input-box"
+                          />
+                          <div className="eye-button" onClick={() => setShowPassword(!showPassword)}
+                            aria-label={showPassword ? "Hide password" : "Show password"}>
+                          <img src={showPassword ? eye : eyeOff} alt={showPassword ? "Hide password" : "Show password"} />
+                          </div>
+                        </div>
+                      </div>
+            <div className='links-forgot'>
+                <a className='forgot' href="#forgot">Forgotten Password?</a>
+                <Link to="/register">Not Registered?</Link>
+                </div>
+                <button type='submit' className='login-button'>Log in</button>
+              </form>
+              
+              </div>
+              </div>
+                  </div>
+                  
+                  <div className="image">
+                    <img
+                      src={assets.loginImage}
+                      alt="Sagar's Photo"
+                    />
                   </div>
                 </div>
               </div>
-    <div className='links-forgot'>
-        <a className='forgot' href="#forgot">Forgotten Password?</a>
-        <Link to="/register">Not Registered?</Link>
-        </div>
-        <button type='submit' className='login-button'>Log in</button>
-      </form>
-      
-      </div>
-      </div>
-
-      <div className="login-grid-2 hidden md:block">
-        <img className='loginImage' src={assets.loginImage} alt="" />
-      </div>
-      </div>
-      <ToastContainer />
+              <ToastContainer />
     </div>
   )
 }

@@ -4,7 +4,7 @@ import AboutUs from './components/AboutUs'
 import Courses from './components/Courses'
 import OurNumbers from './components/OurNumbers'
 import OurCourses from './components/OurCourses'
-import Footer from './components/Footer'
+
 
 
 const App = () => {
@@ -15,7 +15,6 @@ const App = () => {
  <AboutUs/>
  <OurNumbers/>
  <OurCourses/>
- <Footer/>
    </main>
   )
 }
