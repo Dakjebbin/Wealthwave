@@ -185,7 +185,7 @@ const Register = () => {
       </div>
 
       <div className="login-grid-2">
-        <img className='loginImage' src={image_2} alt="" />
+        <img className='loginImage' src="" alt="" />
       </div>
       </div>
       <ToastContainer />
