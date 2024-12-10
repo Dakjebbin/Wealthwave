@@ -2,49 +2,17 @@
 import "../styles/navbar.css"
 import { Link } from 'react-router-dom'
 import { assets } from "../assets/assest"
+import { useState } from "react"
 
 
 
 const Navbar = () => {
+    const [isNavActive, setIsNavActive] = useState(false);
 
+    const handleToggle = () => {
+      setIsNavActive(!isNavActive);
+    };
   return (
-    // <header className='app-update'>
-    // <header className='app'>
-    //   <div className='logo-box'>
-    // <Link to="/"><img className='logo' src={logo} alt="" /></Link>
-    // </div>
-    //     <nav className='Navbar md:block sm: hidden'>
-    //       <ul>
-            
-    //         <a href="#home">
-    //           <li><span style={{color: "#FE0000"}}>HOME</span></li>
-    //           </a>
-    //         <a href="#courses"><li>COURSES</li></a>
-    //         <a href="#about_us"><li><span style={{color: "#FE0000"}}>ABOUT US</span></li></a>
-    //         <a href="#contact"><li>CONTACT US</li></a>
-    //       </ul>
-    //     </nav>
-    //     <Link to="/login">
-    //  <button className='login-button-1 md:block sm: hidden'>Login</button></Link>
-     
-    
-    //   <img className="block md:hidden" src={assets.menu_button} alt="" />
-   
-    // </header>
-
-    // <nav>
-    // <ul>
-            
-    //         <a href="#home">
-    //           <li><span style={{color: "#FE0000"}}>HOME</span></li>
-    //           </a>
-    //         <a href="#courses"><li>COURSES</li></a>
-    //         <a href="#about_us"><li><span style={{color: "#FE0000"}}>ABOUT US</span></li></a>
-    //         <a href="#contact"><li>CONTACT US</li></a>
-    //       </ul>
-    // </nav>
-
-    // </header>
 
     <header>
       <div className="header">
@@ -56,9 +24,9 @@ const Navbar = () => {
 
         <nav className="hidden lg:block">
           <ul className="navbar">
-            <li>
-              <a href="#home">Home</a>
-            </li>
+          <li>
+      <Link to="/" id="home">Home</Link>
+           </li>
 
             <li>
               <a href="#courses">Courses</a>
@@ -82,18 +50,20 @@ Login
    </Link>
         </div>
 
-        <img className="block lg:hidden" src={assets.menu_button} alt="" />
+        <img className="block lg:hidden" src={assets.menu_button} alt="" onClick={handleToggle} />
         </div>
 
-        <nav className="bg-[#ee4646] mobile-view">
+        {/* My mobile view starts here */}  
 
-          <div>
-            <img src={assets.close_btn} alt="" />
+        <nav className={`mobile-view ${isNavActive ? "active" : ""}`}>
+
+          <div className="close-button">
+            <img src={assets.close_btn} alt="" onClick={handleToggle} />
           </div>
           <ul className="navbar-mobile">
-            <li>
-              <a href="#home">Home</a>
-            </li>
+                <li>
+            <Link to="/" id="home">Home</Link>
+          </li>
 
             <li>
               <a href="#courses">Courses</a>
@@ -107,6 +77,14 @@ Login
               <a href="#contact">Contact Us</a>
             </li>
           </ul>
+
+            <div className="button-mobile-container">
+                  <Link to="/login">
+          <button className="mobile-login-button-1">
+                 Login
+          </button>
+          </Link>
+          </div>
         </nav>
     </header>
   )
