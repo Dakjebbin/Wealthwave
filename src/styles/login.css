@@ -177,6 +177,14 @@ text-align: left;
   position: relative;
   
 }
+.image-login {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-top: 20px; */
+  padding: 20px;
+}
 
 @media (max-width:768px) {
   .image-login{
