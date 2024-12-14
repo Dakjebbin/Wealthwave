@@ -72,7 +72,7 @@ Login
 
         {/* My mobile view starts here */}  
 
-        <nav  ref={mobileNavRef} className={`mobile-view ${isNavActive ? "active" : ""}`}>
+        <nav ref={mobileNavRef} className={`mobile-view ${isNavActive ? "active" : ""}`}>
 
           <div className="close-button">
             <img src={assets.close_btn} alt="" onClick={handleToggle} />
