@@ -88,7 +88,7 @@ const OurNumbers = () => {
                    {isRegistered}+
                 </p>
                 <p className="numbers-text text-center">
-                   Registered Investors
+                   Registered Marketers
                 </p>
             </div>
 

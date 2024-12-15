@@ -202,7 +202,7 @@ const Sidebar = () => {
           <div
             className={`flex-1 p-5 overflow-auto  md:max-h-screen transition-all duration-500 ${open ? "ml-4" : "ml-5"}`}
           >
-            <Dashboard />
+         
           </div>
         </>
       )}
