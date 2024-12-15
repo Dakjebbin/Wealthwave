@@ -7,12 +7,10 @@ import axios from 'axios';
 const Dashboard = () => {
 
   const { userData } = useAuthContext();
-  const [transaction, setTransaction] = useState([])
+  const [transaction, setTransaction] = useState([]);
+  const [balance, setBalance] = useState(0);
   
   const baseUrl = import.meta.env.VITE_BASEURL
-  
-console.log("the state variable",transaction);
-
   
   axios.defaults.withCredentials = true;
 
@@ -24,7 +22,7 @@ console.log("the state variable",transaction);
         const response = await axios.get(`${baseUrl}/transactions/get-transaction/${userData.email}`,{
           withCredentials:true
         })
-        console.log(response);
+        // console.log(response);
         setTransaction(response.data.data)
       } catch (error) {
         if (error instanceof axios.AxiosError) {
@@ -39,6 +37,49 @@ console.log("the state variable",transaction);
   }
   }, [userData]);
 
+
+  useEffect(() => {
+    const fetchBalance = async () => {
+      if (!userData.email) return;
+  
+      try {
+       const response = await axios.get(`${baseUrl}/userFund/fund/${userData.email}`,{
+          withCredentials:true
+        })
+      
+       
+        if (response.data && response?.data?.user && response?.data?.user?.amount !== undefined) {
+          setBalance(response?.data?.user?.amount);
+        }
+        
+        
+      } catch (error) {
+        if (error instanceof axios.AxiosError) {
+          console.log("No session => ", error?.response?.data);
+        } else {
+          console.log("Session error => ", error);
+        }
+      }
+    }
+
+    if (userData?.email) {
+      fetchBalance();
+    }
+
+  }, [userData, balance])
+
+
+
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+  };
+  
+
   return (
     <div>
 
@@ -52,22 +93,15 @@ console.log("the state variable",transaction);
       ) : (
         <span></span>
       )}
-      {/* <div>
-                <span className='flex items-center mr-3' >Welcome {userData?.username}
-                <Avatar >
-        <AvatarImage src="https://github.com/shadcn.png" />
-        <AvatarFallback>WW</AvatarFallback>
-      </Avatar>
-      </span>
-      </div> */}
+    
                 </div>
 
               <div>
                 <p className='text-xl font-bold'> <span className='text-[#FE0000] '>Welcome</span> Back {userData?.username}</p>
               </div>
 
-              <div className='bg-[#FF9994] grid p-10 gap-10 mt-8 rounded-md md:grid-cols-3 '>
-                <div className='bg-white dash-text-box rounded-md flex p-5 flex-col items-center h-44 justify-between'>
+              <div className='bg-[#FF9994] flex flex-wrap p-10 gap-10 mt-8 rounded-md'>
+                <div className='bg-white flex-grow basis-32 dash-text-box rounded-md flex p-5 flex-col items-center h-44 justify-between'>
                   <p className='font-medium'>
                     Total User
                   </p>
@@ -83,7 +117,7 @@ console.log("the state variable",transaction);
                    </span>
                   </p>
                 </div>
-                <div className='bg-white dash-text-box rounded-md flex p-5 flex-col items-center h-44 justify-between'>
+                <div className='bg-white flex-grow basis-32 dash-text-box rounded-md flex p-5 flex-col items-center h-44 justify-between'>
                   <p className='font-medium'>
                     Total Order
                   </p>
@@ -99,7 +133,7 @@ console.log("the state variable",transaction);
                    </span>
                   </p>
                 </div>
-                <div className='bg-white dash-text-box rounded-md flex p-5 flex-col items-center h-44 justify-between'>
+                <div className='bg-white flex-grow basis-32 dash-text-box rounded-md flex p-5 flex-col items-center h-44 justify-between'>
                   <p className='font-medium'>
                     Total Sales
                   </p>
@@ -117,25 +151,55 @@ console.log("the state variable",transaction);
                 </div>
               </div>
 
+              <div className='flex flex-wrap gap-10 lg:gap-28 mt-9 '>
+                <div className='flex-grow basis-80 bg-[#FFBBB8] p-8 rounded-md fund-box items-center flex flex-col'>
+                  <p className='mb-5 text-3xl'>
+                    Balance
+                  </p>
 
+                  <p className='mb-5 text-2xl'>
+                    $ {balance}
+                  </p>
 
-              {/* <div className=' mt-7'>
-                <h2>Transaction History</h2>
+                  <button className='bg-white text-2xl font-semibold px-9 py-1'>
+                    + Fund Account
+                  </button>
+                </div>
+
+                <div className='flex-grow basis-80 bg-[#FFBBB8] p-8 rounded-md fund-box items-center flex flex-col'>
+                 
+                  <p className='mb-5 text-3xl'>
+                    Profits
+                  </p>
+
+                  <p className='mb-5 text-2xl'>
+                    $0
+                  </p>
+
+                  <button className='bg-white px-10 font-semibold text-2xl py-1'>
+                   Transfer
+                  </button>
+                  
+                </div>
+              </div>
+
+              {/* <div className='mt-10 '>
+                <h2 className='text-center mb-10 font-semibold text-2xl'>Transaction History</h2>
                 {transaction.length === 0 ? (
                           <p>No Transactions</p>
                         ) : (
                   <ul>
                     {transaction.map((transactions, index) => {
-                    return( <div key={index} className='grid grid-cols-3'>
-                          <div>Amount:
-                            <p> ${transactions.amount}
+                    return( <div key={index} className='flex flex-wrap'>
+                          <div className='flex-grow basis-10 mb-9'>Type:
+                            <p> {transactions.type}
                             </p>
                             </div>
-                          <div>Status: 
-                            <p>{transactions.status}
+                          <div className='flex-grow basis-10'>Amount: 
+                            <p>${transactions.amount}
                             </p>
                             </div>
-                          <div>Type: <p> {transactions.type}
+                          <div className='flex-grow basis-10'>Status: <p>{transactions.status}
                           </p>
                           </div>
                       </div>
@@ -145,6 +209,42 @@ console.log("the state variable",transaction);
                   </ul>
                 ) }
                 </div> */}
+
+                <div>
+                <h2 className='text-center mt-10 font-semibold text-2xl'>Transaction History</h2>
+
+                  <div className='flex transaction-list bg-[#FFE6E4] px-4 rounded-sm flex-wrap mt-10'>
+                    <p className='flex-grow text-sm sm:text-xl '>Type</p>
+                    <p className='flex-grow text-sm pl-9 sm:text-xl'>Amount</p>
+                    <p className='flex-grow text-sm pl-4 sm:text-xl'>Status</p>
+                    <p className='flex-grow text-sm sm:text-xl'>Date Created</p>
+                  </div>
+
+            <div>
+                  <ol className='flex flex-wrap px-4 mt-5'>
+                    <li className=' flex-grow '>{transaction.map((transactions, index) => (
+                        <div key={index} className='uppercase mb-3 text-sm sm:text-xl '>
+                          {transactions.type}
+                        </div>
+                    ))}</li>
+                    <li className='flex-grow'>{transaction.map((transactions, index) => (
+                        <div key={index} className='mb-3 text-sm sm:text-xl'>
+                         ${transactions.amount}
+                        </div>
+                    ))}</li>
+                    <li className='flex-grow'>{transaction.map((transactions, index) => (
+                        <div key={index} className='mb-3 text-sm sm:text-xl'>
+                         {transactions.status}
+                        </div>
+                    ))}</li>
+                    <li className='flex-grow'>{transaction.map((transactions, index) => (
+                        <div key={index} className='mb-3 text-sm sm:text-xl'>
+                         {formatDate(transactions.createdAt)}
+                        </div>
+                    ))}</li>
+                  </ol>
+                  </div>
+                </div>
               </div>
 
               )}

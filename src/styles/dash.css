@@ -13,6 +13,12 @@
 font-size: 3em;
 font-weight: 700;
 line-height: 72.61px;
+}
 
+.fund-box p{
+    font-family: "Playfair Display", serif;
+}
 
+.transaction-list p{
+    font-family: "Playfair Display", serif;
 }
