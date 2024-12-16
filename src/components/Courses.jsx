@@ -13,7 +13,7 @@ const Courses = () => {
        <div className="courses-grid">
             <div className="course-grid-1">
                 <p className="course-name">
-                    DBA
+                    DBA (Digital Beginners Academy)
                 </p>
                 <img src={assets.books} alt="" />
                 <p className="earn-p">
@@ -30,7 +30,7 @@ const Courses = () => {
             </div>
             <div className="course-grid-1">
             <p className="course-name">
-                UBC
+                UBC (Ultimate Branding Course)
                 </p>
                 <img src={assets.books} alt="" />
                 <p className="earn-p">
@@ -51,7 +51,7 @@ const Courses = () => {
                 </p>
                 <img src={assets.books} alt="" />
                 <p className="earn-p">
-                    $1,000 To Earn
+                    $900 To Earn
                 </p>
                 <img src={assets.earn} alt="" />
                 <p className="earn-p">
@@ -59,7 +59,7 @@ const Courses = () => {
                 </p>
                 <span>
                     <img src={assets.time} alt="" />
-                    <p>(48Hours)</p>
+                    <p>(24Hours - 48Hours)</p>
                 </span>
             </div>
             <div className="course-grid-1">
@@ -76,7 +76,7 @@ const Courses = () => {
                 </p>
                 <span>
                     <img src={assets.time} alt="" />
-                    <p>(48Hours)</p>
+                    <p>(48Hours - 72Hours)</p>
                 </span>
             </div>
             <div className="course-grid-1">
@@ -94,7 +94,7 @@ const Courses = () => {
                 <div>
                     <span>
                     <img src={assets.time} alt="" />
-                    <p>(48Hours)</p>
+                    <p>(72Hours)</p>
                     </span>
                 </div>
             </div>

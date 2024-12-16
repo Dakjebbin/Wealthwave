@@ -3,14 +3,15 @@ import { assets } from "../assets/assest";
 import { useAuthContext } from "../context/auth-context";
 import { MdDashboard } from "react-icons/md";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { FaBook } from "react-icons/fa";
 import axios from "axios";
 import { MdOutlineMenuOpen } from "react-icons/md";
 import { PiHandWithdrawBold } from "react-icons/pi";
 import { IoIosContact } from "react-icons/io";
 import { IoIosLogOut } from "react-icons/io";
-import Dashboard from "./Dashboard";
+import "../styles/dash-courses.css"
 
 const Sidebar = () => {
   axios.defaults.withCredentials = true;
@@ -115,8 +116,8 @@ const Sidebar = () => {
             {/* Body */}
             <ul className="flex-1">
               {menuitems.map((item, index) => (
-                <li key={index} className="px-1 py-2 my-2 relative hover:bg-white rounded-md duration-300 cursor-pointer flex gap-2 items-center group">
-                  <a href={item.url}>
+                <li key={index} className="px-1 py-2 my-2 relative duration-300 flex gap-2 items-center group">
+                  <a className=" hover:bg-white rounded-md cursor-pointer pt-1 pl-2 pr-32" href={item.url}>
                     <div>{item.icons}</div>
                     <p className={`${!open && `w-0 translate-x-24`} duration-500 overflow-hidden`}>
                       {item.label}
@@ -203,9 +204,82 @@ const Sidebar = () => {
             className={`flex-1 p-5 overflow-auto  md:max-h-screen transition-all duration-500 ${open ? "ml-4" : "ml-5"}`}
           >
          
-          </div>
+            <div>
+                <p className='text-xl font-bold'> <span className='text-[#FE0000] '>Welcome</span> Back {userData?.username}</p>
+              </div>
+
+              <div className="flex gap-10 flex-wrap mt-10">
+                <div className="bg-[#FFBBB8] basis-80 flex-grow rounded-md p-10">
+                    <p className="text-3xl font-bold">
+                    Turn YOUR Passion, Hobby or Interest into YOUR Success Story!
+                    </p>
+                </div>
+
+                <div className="w-64 h-48 basis-80 flex-grow ">
+                    <img className="w-full h-full object-cover rounded-md" src={assets.support} alt="" />
+                </div>
+
+              </div>
+
+              <p className="text-2xl mt-7 font-semibold">
+                Start exploring these opportunities today, and pave the path to a more financially secure future. With the right strategies and dedication, 
+                you can achieve more than $4,000 weekly passive income you’ve been dreaming of.
+                </p>
+              <div className="flex mt-7 gap-7 flex-wrap">
+
+                  <div className="flex-grow basis-40">
+                    <div className="bg-[#FFBBB8] mb-4 hover:-translate-y-3 duration-500 shadow-md shadow-[#4D4C4C] pt-10 px-1 rounded-lg pb-3 dash-courses-text">
+                    <p className="text-center text-xl pb-2">DBA <br /> (Digital Beginners Academy)</p>
+                    <p className="text-center text-[16px]">$200 to earn <br /> $2,000 - $4,000</p>
+                    <div className="w-56 m-auto pb-2 pt-3">
+                      <img className="w-full" src={assets.buy_courses} alt="" />
+                    </div>
+                    <p className="text-[#4D4C4C]">Total Sales - 4569</p>
+                  </div>
+                  <button className="font-bold">BUY</button>
+                  </div>
+                  
+                  <div className="flex-grow basis-40">
+                    <div className="bg-[#FFBBB8] mb-4 hover:-translate-y-3 duration-500 shadow-md shadow-[#4D4C4C] pt-10 px-1 rounded-lg pb-3 dash-courses-text">
+                    <p className="text-center text-xl pb-2">UBC <br /> (Ultimate Branding Course)</p>
+                    <p className="text-center text-[16px]">$500 to earn <br /> $5,000 - $7,000</p>
+                    <div className="w-56 m-auto pb-2 pt-3">
+                      <img className="w-full" src={assets.buy_courses_2} alt="" />
+                    </div>
+                    <p className="text-[#4D4C4C]">Total Sales - 5236</p>
+                  </div>
+                  <button className="font-bold">BUY</button>
+                  </div>
+
+                  <div className="flex-grow basis-40">
+                    <div className="bg-[#FFBBB8] mb-4 hover:-translate-y-3 duration-500 shadow-md shadow-[#4D4C4C] pt-10 px-1 rounded-lg pb-3 dash-courses-text">
+                    <p className="text-center text-xl pb-2">DBA <br /> (Digital Beginners Academy)</p>
+                    <p className="text-center text-[16px]">$200 to earn <br /> $2,000 - $4,000</p>
+                    <div className="w-56 m-auto pb-2 pt-3">
+                      <img className="w-full" src={assets.buy_courses} alt="" />
+                    </div>
+                    <p className="text-[#4D4C4C]">Total Sales - 4569</p>
+                  </div>
+                  <button className="font-bold">BUY</button>
+                  </div>
+
+                  <div className="flex-grow basis-40">
+                    <div className="bg-[#FFBBB8] mb-4 hover:-translate-y-3 duration-500 shadow-md shadow-[#4D4C4C] pt-10 px-1 rounded-lg pb-3 dash-courses-text">
+                    <p className="text-center text-xl pb-2">DBA <br /> (Digital Beginners Academy)</p>
+                    <p className="text-center text-[16px]">$200 to earn <br /> $2,000 - $4,000</p>
+                    <div className="w-56 m-auto pb-2 pt-3">
+                      <img className="w-full" src={assets.buy_courses} alt="" />
+                    </div>
+                    <p className="text-[#4D4C4C]">Total Sales - 4569</p>
+                  </div>
+                  <button className="font-bold">BUY</button>
+                  </div>
+                </div>
+         </div>
+          
         </>
       )}
+      <ToastContainer/>
     </div>
   );
 };

@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { assets } from '../assets/assest'
 import "../styles/about.css"
+import { FaSpinner } from 'react-icons/fa'
 
 
 
@@ -18,50 +19,58 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [logging, setLogging] = useState(false);
 
  // const Navigate = useNavigate()
 
   const baseUrl = import.meta.env.VITE_BASEURL
 //axios with credentials
 axios.defaults.withCredentials = true;
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
       e.preventDefault();
 
       if (!email || !password) {
         alert('Please all fields are required')
         return;
   }
+  setLogging(true);
 
-  axios.post(`${baseUrl}/auth/login`, {
+try {
+  const response = await axios.post(`${baseUrl}/auth/login`, {
     email,
     password
   }, {
     withCredentials: true
-  }).then((response) => {
-    
-    if (response.data.success === true) {
-      toast.success(response?.data?.message)
-    } 
-    setEmail('')
-    setPassword('')
-    window.location.assign("/dashboard");
-   })
-   .catch((error) => {
-    if (error.response) {
-      // Handle specific error codes
-      if (error.response.status === 404) {
-        toast.error('Email or Password is incorrect'); // Invalid credentials
-      } else if (error.response.status === 409) {
-        toast.error('Incorrect credentials or account issues'); // Conflict error (e.g., email already taken)
-      } else {
-        toast.error('An error occurred. Please try again later.'); // Generic error
-      }
-    } else if (error.request) {
-      toast.error('No response from server. Please check your internet connection.');
+  })
+
+  
+  if (response.data.success === true) {
+    toast.success(response?.data?.message)
+  } 
+  setEmail('')
+  setPassword('')
+  window.location.assign("/dashboard");
+ 
+} catch (error) {
+  if (error.response) {
+    // Handle specific error codes
+    if (error.response.status === 404) {
+      toast.error('Email or Password is incorrect'); // Invalid credentials
+    } else if (error.response.status === 409) {
+      toast.error('Incorrect credentials or account issues'); // Conflict error (e.g., email already taken)
     } else {
-      toast.error('An unexpected error occurred.');
+      toast.error('An error occurred. Please try again later.'); // Generic error
     }
-  });
+  } else if (error.request) {
+    toast.error('No response from server. Please check your internet connection.');
+  } else {
+    toast.error('An unexpected error occurred.');
+  }
+}
+
+finally{
+  setLogging(false);
+}
 }
   return (
     <div> 
@@ -111,7 +120,21 @@ axios.defaults.withCredentials = true;
                 <a className='forgot' href="#forgot">Forgotten Password?</a>
                 <Link to="/register">Not Registered?</Link>
                 </div>
-                <button type='submit' className='login-button'>Log in</button>
+                <div>
+                <button type='submit' 
+                disabled={logging}
+                className='login-button'
+                >
+                  {logging ? (
+                      <div className="flex items-center space-x-2 justify-center">
+                      <span className="animate-pulse">Loading</span>{" "}
+                      <FaSpinner className=" animate-spin " />
+                    </div>
+                  ) : (
+                  "Log in"
+                  )}
+                  </button>
+                  </div>
               </form>
               
               </div>

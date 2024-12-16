@@ -3,7 +3,8 @@ import { assets } from "../assets/assest";
 import { useAuthContext } from "../context/auth-context";
 import { MdDashboard } from "react-icons/md";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { FaBook } from "react-icons/fa";
 import axios from "axios";
 import { MdOutlineMenuOpen } from "react-icons/md";
@@ -115,8 +116,8 @@ const Sidebar = () => {
             {/* Body */}
             <ul className="flex-1">
               {menuitems.map((item, index) => (
-                <li key={index} className="px-1 py-2 my-2 relative hover:bg-white rounded-md duration-300 cursor-pointer flex gap-2 items-center group">
-                  <a href={item.url}>
+                <li key={index} className="px-1 py-2 my-2 relative duration-300 flex gap-2 items-center group">
+                  <a className=" hover:bg-white rounded-md cursor-pointer pt-1 pl-2 pr-32" href={item.url}>
                     <div>{item.icons}</div>
                     <p className={`${!open && `w-0 translate-x-24`} duration-500 overflow-hidden`}>
                       {item.label}
@@ -206,7 +207,9 @@ const Sidebar = () => {
           </div>
         </>
       )}
+       <ToastContainer />
     </div>
+   
   );
 };
 

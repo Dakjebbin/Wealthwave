@@ -7,8 +7,8 @@ import Layout from './layouts/layout.jsx'
 import Login from './authentication/Login.jsx'
 import Register from './authentication/Register.jsx'
 // import Dashboard from './components/Dashboard.jsx'
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+//import { ToastContainer } from 'react-toastify';
+//import 'react-toastify/dist/ReactToastify.css';
 import TermsConditions from './components/Terms.jsx'
 import AuthContextProvider from './context/auth-context.jsx'
 import Sidebar from './components/Sidebar.jsx'
@@ -57,7 +57,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthContextProvider>
    <RouterProvider router={router} />
-   <ToastContainer />
+   {/* <ToastContainer /> */}
     </AuthContextProvider>
   </StrictMode>,
 )

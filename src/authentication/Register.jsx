@@ -10,6 +10,7 @@ import axios from "axios"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { assets } from '../assets/assest'
+import { FaSpinner } from 'react-icons/fa'
 
 
 const Register = () => {
@@ -20,6 +21,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+  const [register, setRegister] = useState(false);
   //const [confirmpassword, setConfirmPassword] = useState("");
 
   const Navigate = useNavigate()
@@ -27,7 +29,7 @@ const Register = () => {
   const baseUrl = import.meta.env.VITE_BASEURL
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!fullname || !username || !email || !phoneNumber || !password) {
@@ -40,46 +42,44 @@ const Register = () => {
       return;
     }
 
-    axios.post(`${baseUrl}/auth/register`, {
-      fullname,
-      username,
-      email,
-      phonenumber: phoneNumber,
-      password
-    }).then((response) => {
+      setRegister(true);
+    try {
+      const response = await axios.post(`${baseUrl}/auth/register`, {
+        fullname,
+        username,
+        email,
+        phonenumber: phoneNumber,
+        password
+      })
 
       if(response.data.success === true) {
-          toast.success("Registration successful", {
-            position: "top-center"
-          })
-      } else if(response.data.success === false) {
-        toast.error("Registration failed: " + (response.error || 'Unknown error'));
-      }
+        toast.success("Registration successful", {
+          position: "top-center"
+        })
+    } else if(response.data.success === false) {
+      toast.error("Registration failed: " + (response.error || 'Unknown error'));
+    }  
+    setFullName('')
+    setUserName('')
+    setEmail('')
+    setPhoneNumber('')
+    setPassword('')
       
-        
-      setFullName('')
-      setUserName('')
-      setEmail('')
-      setPhoneNumber('')
-      setPassword('')
-        
-      Navigate("/login")
-        
-    }). catch((error) => {
+    Navigate("/login")
+    } catch (error) {
       if (error instanceof axios.AxiosError) {
-       toast.error(
-          error?.response?.data
-        );
-      } else {
-        toast.error("reg error => ", error);
-      }
-    
-    })
-    
+        toast.error(
+           error?.response?.data
+         );
+       } else {
+         toast.error("reg error => ", error);
+       }
+     
+    } finally {
+      setRegister(false);
+    }
 
   }
-
-
   return (
     <div>
 <div className="hero">
@@ -174,11 +174,22 @@ const Register = () => {
         <input type="checkbox" name="" id="" required />
         <span style={{marginLeft:"10px"}}>I have Agreed to the <a href="/terms" style={{color:"blue"}}>Terms & Conditions</a></span>
         </div>
-     
-      
-<div>
-        <button className='login-button'>Sign Up</button>
-        </div>
+
+        <div>
+                <button type='submit' 
+                disabled={register}
+                className='login-button'
+                >
+                  {register ? (
+                      <div className="flex items-center space-x-2 justify-center">
+                      <span className="animate-pulse">Signing Up</span>{" "}
+                      <FaSpinner className=" animate-spin " />
+                    </div>
+                  ) : (
+                  "Sign Up"
+                  )}
+                  </button>
+                  </div>
       </form>
 
         <div style={{textAlign:"center", marginTop:"15px"}}>
