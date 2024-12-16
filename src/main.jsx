@@ -14,6 +14,7 @@ import AuthContextProvider from './context/auth-context.jsx'
 import Sidebar from './components/Sidebar.jsx'
 // import DashboardLayout from './layouts/DashboardLayout.jsx'
 import DashCourses from './components/DashCourses.jsx'
+import ForgotPassword from './components/ForgotPassword.jsx'
 
 
 
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
         path: "terms",
         element: <TermsConditions/>,
       },
+      {
+        path:"forgot-Password",
+        element: <ForgotPassword/>
+      }
     ],
   },
       {

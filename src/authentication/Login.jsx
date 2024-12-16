@@ -117,7 +117,9 @@ finally{
                         </div>
                       </div>
             <div className='links-forgot'>
-                <a className='forgot' href="#forgot">Forgotten Password?</a>
+              <Link to="/forgot-password">
+                <span className='forgot cursor-pointer'>Forgotten Password?</span>
+                </Link>
                 <Link to="/register">Not Registered?</Link>
                 </div>
                 <div>

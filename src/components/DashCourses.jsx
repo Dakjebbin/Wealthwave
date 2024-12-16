@@ -13,7 +13,7 @@ import { IoIosContact } from "react-icons/io";
 import { IoIosLogOut } from "react-icons/io";
 import "../styles/dash-courses.css"
 
-const Sidebar = () => {
+const DashCourses = () => {
   axios.defaults.withCredentials = true;
   const { userData } = useAuthContext();
   const [open, setOpen] = useState(true);
@@ -339,4 +339,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default DashCourses;
