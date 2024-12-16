@@ -5,7 +5,7 @@ import { MdDashboard } from "react-icons/md";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaBook } from "react-icons/fa";
+import { FaBook, FaSpinner } from "react-icons/fa";
 import axios from "axios";
 import { MdOutlineMenuOpen } from "react-icons/md";
 import { PiHandWithdrawBold } from "react-icons/pi";
@@ -17,11 +17,14 @@ const Sidebar = () => {
   axios.defaults.withCredentials = true;
   const { userData } = useAuthContext();
   const [open, setOpen] = useState(true);
+  const [loggingOut, setLoggingOut] = useState(false);
 
   const baseUrl = import.meta.env.VITE_BASEURL;
 
   const handleLogout = async (e) => {
     e.preventDefault();
+
+    setLoggingOut(true);
     try {
       const response = await axios.post(
         `${baseUrl}/auth/logout`,
@@ -42,6 +45,8 @@ const Sidebar = () => {
         const errorMessage = error.message;
         toast.error(errorMessage);
       }
+    } finally{
+      setLoggingOut(false);
     }
   };
 
@@ -144,10 +149,26 @@ const Sidebar = () => {
                 <p className="flex items-center mr-3">{userData?.username}</p>
                 <p className="text-xs uppercase">{userData?.email}</p>
 
-                <button onClick={handleLogout} className="flex items-center bg-red-600 rounded-md text-white p-1">
-                  <p className="mr-2 font-bold">Logout</p>
+                
+                <button 
+                onClick={handleLogout} 
+                className="flex items-center bg-red-600 rounded-md text-white p-1"
+                disabled={loggingOut}
+                >
+                  
+                  {loggingOut ? (
+                    <div className="flex items-center space-x-2 justify-center">
+                    <span className="animate-pulse">Logging Out</span>{" "}
+                    <FaSpinner className=" animate-spin " />
+                  </div>
+                  ) : (
+                    <div className="flex">
+                  <p className="mr-1 font-bold">Logout</p>
                   <IoIosLogOut className="cursor-pointer" size={25} />
+                  </div>
+                )}
                 </button>
+
               </div>
             </div>
           </nav>
@@ -189,10 +210,25 @@ const Sidebar = () => {
                     <p className="flex items-center mr-3">{userData?.username}</p>
                     <p className="text-xs uppercase">{userData?.email}</p>
 
-                    <button onClick={handleLogout} className="flex items-center bg-red-600 rounded-md text-white p-1">
-                      <p className="mr-2 font-bold">Logout</p>
-                      <IoIosLogOut className="cursor-pointer" size={25} />
-                    </button>
+ 
+                    <button 
+                onClick={handleLogout} 
+                className="flex items-center bg-red-600 rounded-md text-white p-1"
+                disabled={loggingOut}
+                >
+                  
+                  {loggingOut ? (
+                    <div className="flex items-center space-x-2 justify-center">
+                    <span className="animate-pulse">Logging Out</span>{" "}
+                    <FaSpinner className=" animate-spin " />
+                  </div>
+                  ) : (
+                    <div className="flex">
+                  <p className="mr-1 font-bold">Logout</p>
+                  <IoIosLogOut className="cursor-pointer" size={25} />
+                  </div>
+                )}
+                </button>
                   </div>
                 </div>
               </nav>

@@ -15,6 +15,15 @@ font-weight: 700;
 line-height: 72.61px;
 }
 
+@media(max-width:500px){
+    .rating{
+        font-family: "Inter", sans-serif;
+    font-size: 2em;
+    font-weight: 700;
+    line-height: 72.61px;
+    }
+}
+
 .fund-box p{
     font-family: "Playfair Display", serif;
 }

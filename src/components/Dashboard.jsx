@@ -4,6 +4,7 @@ import "../styles/dash.css"
 
 //import { useParams } from "react-router-dom";
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 const Dashboard = () => {
 
   const { userData } = useAuthContext();
@@ -161,9 +162,11 @@ const Dashboard = () => {
                     $ {balance}
                   </p>
 
+                  <Link to="/courses">
                   <button className='bg-white text-2xl font-semibold px-9 py-1'>
                     + Fund Account
                   </button>
+                  </Link>
                 </div>
 
                 <div className='flex-grow basis-80 bg-[#FFBBB8] p-8 rounded-md fund-box items-center flex flex-col'>

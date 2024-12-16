@@ -5,7 +5,7 @@ import { MdDashboard } from "react-icons/md";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaBook } from "react-icons/fa";
+import { FaBook, FaSpinner } from "react-icons/fa";
 import axios from "axios";
 import { MdOutlineMenuOpen } from "react-icons/md";
 import { PiHandWithdrawBold } from "react-icons/pi";
@@ -17,12 +17,14 @@ const Sidebar = () => {
   axios.defaults.withCredentials = true;
   const { userData } = useAuthContext();
   const [open, setOpen] = useState(true);
+  const [loggingOut, setLoggingOut] = useState(false);
 
   const baseUrl = import.meta.env.VITE_BASEURL;
 
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
+      setLoggingOut(true);
       const response = await axios.post(
         `${baseUrl}/auth/logout`,
         {
@@ -42,6 +44,8 @@ const Sidebar = () => {
         const errorMessage = error.message;
         toast.error(errorMessage);
       }
+    } finally{
+      setLoggingOut(false);
     }
   };
 
@@ -144,9 +148,24 @@ const Sidebar = () => {
                 <p className="flex items-center mr-3">{userData?.username}</p>
                 <p className="text-xs uppercase">{userData?.email}</p>
 
-                <button onClick={handleLogout} className="flex items-center bg-red-600 rounded-md text-white p-1">
-                  <p className="mr-2 font-bold">Logout</p>
+                 
+                <button 
+                onClick={handleLogout} 
+                className="flex items-center bg-red-600 rounded-md text-white p-1"
+                disabled={loggingOut}
+                >
+                  
+                  {loggingOut ? (
+                    <div className="flex items-center space-x-2 justify-center">
+                    <span className="animate-pulse">Logging Out</span>{" "}
+                    <FaSpinner className=" animate-spin " />
+                  </div>
+                  ) : (
+                    <div className="flex">
+                  <p className="mr-1 font-bold">Logout</p>
                   <IoIosLogOut className="cursor-pointer" size={25} />
+                  </div>
+                )}
                 </button>
               </div>
             </div>
@@ -188,11 +207,25 @@ const Sidebar = () => {
                   <div className="leading-5">
                     <p className="flex items-center mr-3">{userData?.username}</p>
                     <p className="text-xs uppercase">{userData?.email}</p>
-
-                    <button onClick={handleLogout} className="flex items-center bg-red-600 rounded-md text-white p-1">
-                      <p className="mr-2 font-bold">Logout</p>
-                      <IoIosLogOut className="cursor-pointer" size={25} />
-                    </button>
+ 
+                    <button 
+                onClick={handleLogout} 
+                className="flex items-center bg-red-600 rounded-md text-white p-1"
+                disabled={loggingOut}
+                >
+                  
+                  {loggingOut ? (
+                    <div className="flex items-center space-x-2 justify-center">
+                    <span className="animate-pulse">Logging Out</span>{" "}
+                    <FaSpinner className=" animate-spin " />
+                  </div>
+                  ) : (
+                    <div className="flex">
+                  <p className="mr-1 font-bold">Logout</p>
+                  <IoIosLogOut className="cursor-pointer" size={25} />
+                  </div>
+                )}
+                </button>
                   </div>
                 </div>
               </nav>
@@ -240,7 +273,7 @@ const Sidebar = () => {
                   </div>
                   
                   <div className="flex-grow basis-40">
-                    <div className="bg-[#FFBBB8] mb-4 hover:-translate-y-3 duration-500 shadow-md shadow-[#4D4C4C] pt-10 px-1 rounded-lg pb-3 dash-courses-text">
+                    <div className="bg-[#FFBBB8] mb-4 hover:-translate-y-3 duration-500 shadow-md shadow-[#4D4C4C] pt-10 px-1 rounded-lg pb-4 dash-courses-text">
                     <p className="text-center text-xl pb-2">UBC <br /> (Ultimate Branding Course)</p>
                     <p className="text-center text-[16px]">$500 to earn <br /> $5,000 - $7,000</p>
                     <div className="w-56 m-auto pb-2 pt-3">
@@ -273,6 +306,28 @@ const Sidebar = () => {
                     <p className="text-[#4D4C4C]">Total Sales - 4569</p>
                   </div>
                   <button className="font-bold">BUY</button>
+                  </div>
+                </div>
+ 
+                <div className="mt-7 flex flex-wrap gap-7">
+                <div className=" basis-40">
+                    <div className="bg-[#FFBBB8] mb-4 hover:-translate-y-3 duration-500 shadow-md shadow-[#4D4C4C] pt-10 px-1 rounded-lg pb-3 dash-courses-text">
+                    <p className="text-center text-xl pb-2">DBA <br /> (Digital Beginners Academy)</p>
+                    <p className="text-center text-[16px]">$200 to earn <br /> $2,000 - $4,000</p>
+                    <div className="w-56 m-auto pb-2 pt-3">
+                      <img className="w-full" src={assets.buy_courses} alt="" />
+                    </div>
+                    <p className="text-[#4D4C4C]">Total Sales - 4569</p>
+                  </div>
+                  <button className="font-bold">BUY</button>
+                  </div>
+
+                  <div className="flex-grow basis-96 ">
+                    <p className="bg-[#FFE6E4] p-12 rounded-sm font-bold text-xl">
+                    Our vision is a world in which digital
+                    earning is inclusive, accessible,
+                    relevant, safe and secure for all
+                    </p>
                   </div>
                 </div>
          </div>
