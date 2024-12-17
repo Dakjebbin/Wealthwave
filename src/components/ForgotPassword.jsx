@@ -52,13 +52,13 @@ const ForgotPassword = () => {
 //axios with credentials
 const onSubmitEmail = async (e) => {
         e.preventDefault();
-
+        setLogging(true);
         try {
             const response = await axios.post(`${baseUrl}/auth/forgot-Password`, {
                 email
-            })
+            });
                     
-            if (response.data.success === true) {
+            if (response.data && response.data.success === true) {
                 toast.success(response?.data?.message)
                 setIsEmailSent(true)
             } else{
@@ -90,15 +90,69 @@ const onSubmitEmail = async (e) => {
 const onSubmitOtp = async (e) => {
     e.preventDefault();
 
-    const otpArray = inputRefs.current.map(e => e.value)
-      setOtp(otpArray.join(''));
-    setIsOtpSubmitted(true);
+    // const otpArray = inputRefs.current.map(e => e.value)
+    //   setOtp(otpArray.join(''));
+    // setIsOtpSubmitted(true);
+    
+      const otpArray = inputRefs.current.map((input) => input.value);
+      const otpString = otpArray.join('');
+
+      if (otpString.length !== 6) {
+        toast.error("Please enter a valid 6-digit OTP.");
+        return;
+      }
+      setLogging(true);
+        try {
+          const response = await axios.post(`${baseUrl}/auth/validate-Otp`,{
+            email,
+            otp: otpString,
+          });
+
+          if (response.data.success === true) {
+            toast.success(response?.data?.message)
+            setIsOtpSubmitted(true);
+          } else {
+            toast.error(response?.data?.message || "OTP validation failed.");
+          }
+          
+        } catch (error) {
+          if (error.response) {
+            // The server responded with an error status code
+      
+            // Check the error status and show appropriate messages
+            if (error.response.status === 401) {
+              // Invalid OTP
+              toast.error("Invalid OTP. Please try again.");
+              setLogging(false);
+            } else if (error.response.status === 400) {
+              // OTP expired or other authentication issues
+              toast.error("OTP has expired. Please request a new one.");
+              setLogging(false);
+            } else if (error.response.status === 404) {
+              // Email or OTP not found (not common, but can be handled)
+              toast.error("Email or OTP not found. Please check your details.");
+              setLogging(false);
+            } else {
+              // Generic error fallback
+              toast.error(error?.response?.data?.message || "An error occurred. Please try again.");
+              setLogging(false);
+            }
+          } else if (error.request) {
+            // The request was made but no response was received
+            toast.error("Network error. Please try again later.");
+          } else {
+            // Some other unexpected error
+            toast.error("Unexpected error occurred. Please try again.");
+          }
+        } finally{
+          setLogging(false);
+        }
    
 }
 
 const onSubmitNewPassword = async (e) => {
     e.preventDefault();
-
+    setLogging(true);
     try {
         const response = await axios
         .post(`${baseUrl}/auth/reset-password`,{
@@ -119,6 +173,8 @@ const onSubmitNewPassword = async (e) => {
            } else {
              toast.error("reg error => ", error);
            }
+    } finally{
+      setLogging(false);
     }
 }
   return (
@@ -155,7 +211,7 @@ const onSubmitNewPassword = async (e) => {
                 >
                   {logging ? (
                       <div className="flex items-center space-x-2 justify-center">
-                      <span className="animate-pulse">Loading</span>{" "}
+                      <span className="animate-pulse">Loading</span>{""}
                       <FaSpinner className=" animate-spin " />
                     </div>
                   ) : (
@@ -170,12 +226,6 @@ const onSubmitNewPassword = async (e) => {
                   </div>
                   }
                   
-                  {/* <div className="image-login">
-                    <img
-                      src={assets.loginImage}
-                      alt="Sagar's Photo"
-                    />
-                  </div> */}
                 </div>
               </div>
 
@@ -186,41 +236,7 @@ const onSubmitNewPassword = async (e) => {
                     
                   <div className='login-grid-1'>
                   <div>
-              {/* <h3 className='welcome'>Reset <span style={{color:"black"}}>Password OTP</span></h3>
-              <p className='welcome-2'>Enter the 6-digit <br /> code sent to your Email address</p> */}
-              {/* <form onSubmit={onSubmitOtp}>
-
-              <div className='email-container'>
-                <input 
-                type="text" 
-                placeholder='OTP'
-                required 
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                className="password-input-box"
-                id="text" />
-
-                <div className='absolut'>
-                  <img src={mail} alt="" />
-                </div>
-        </div>
-                <div>
-                <button type='submit' 
-                disabled={logging}
-                className='login-button'
-                >
-                  {logging ? (
-                      <div className="flex items-center space-x-2 justify-center">
-                      <span className="animate-pulse">Loading</span>{" "}
-                      <FaSpinner className=" animate-spin " />
-                    </div>
-                  ) : (
-                  "Submit"
-                  )}
-                  </button>
-                  </div>
-              </form> */}
-
+            
             <form onSubmit={onSubmitOtp} className='bg-white
             p-8 rounded-lg shadow-lg w-96 text-sm'>
             <h1 className='text-center mb-6 text-red-700'>
@@ -252,7 +268,7 @@ const onSubmitNewPassword = async (e) => {
                 >
                   {logging ? (
                       <div className="flex items-center space-x-2 justify-center">
-                      <span className="animate-pulse">Loading</span>{" "}
+                      <span className="animate-pulse">Loading</span>{""}
                       <FaSpinner className=" animate-spin " />
                     </div>
                   ) : (
