@@ -1,6 +1,7 @@
 import { assets } from "../assets/assest"
 import "../styles/courses.css"
 import "../styles/about.css"
+import { Link } from "react-router-dom"
 
 const AboutUs = () => {
   return (
@@ -23,6 +24,9 @@ const AboutUs = () => {
             Digital learning with Wealthwave allows young people to unlock their full potential, acquire new skills,
              and significantly improve their chances in the local labor market.
             </p>
+            <Link to="/AboutUs">
+            <button className="bg-red-500 p-3 text-white font-bold shadow-md shadow-black rounded-md animate-pulse">Read More</button>
+            </Link>
           </div>
           <div className="image">
             <img

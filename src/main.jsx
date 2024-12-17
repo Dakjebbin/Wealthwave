@@ -15,6 +15,7 @@ import Sidebar from './components/Sidebar.jsx'
 // import DashboardLayout from './layouts/DashboardLayout.jsx'
 import DashCourses from './components/DashCourses.jsx'
 import ForgotPassword from './components/ForgotPassword.jsx'
+import AboutUsComponent from './components/AboutUsComponent.jsx'
 
 
 
@@ -42,6 +43,9 @@ const router = createBrowserRouter([
       {
         path:"forgot-Password",
         element: <ForgotPassword/>
+      },{
+        path:"AboutUs",
+        element: <AboutUsComponent/>
       }
     ],
   },

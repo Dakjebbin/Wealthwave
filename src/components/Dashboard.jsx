@@ -186,43 +186,29 @@ const Dashboard = () => {
                 </div>
               </div>
 
-              {/* <div className='mt-10 '>
-                <h2 className='text-center mb-10 font-semibold text-2xl'>Transaction History</h2>
-                {transaction.length === 0 ? (
-                          <p>No Transactions</p>
-                        ) : (
-                  <ul>
-                    {transaction.map((transactions, index) => {
-                    return( <div key={index} className='flex flex-wrap'>
-                          <div className='flex-grow basis-10 mb-9'>Type:
-                            <p> {transactions.type}
-                            </p>
-                            </div>
-                          <div className='flex-grow basis-10'>Amount: 
-                            <p>${transactions.amount}
-                            </p>
-                            </div>
-                          <div className='flex-grow basis-10'>Status: <p>{transactions.status}
-                          </p>
-                          </div>
-                      </div>
-
-                    )
-                    })}
-                  </ul>
-                ) }
-                </div> */}
-
                 <div>
                 <h2 className='text-center mt-10 font-semibold text-2xl'>Transaction History</h2>
 
-                  <div className='flex transaction-list bg-[#FFE6E4] px-4 rounded-sm flex-wrap mt-10'>
+                  {/* <div className='flex transaction-list bg-[#FFE6E4] px-4 rounded-sm flex-wrap mt-10'>
                     <p className='flex-grow text-sm sm:text-xl '>Type</p>
                     <p className='flex-grow text-sm pl-9 sm:text-xl'>Amount</p>
                     <p className='flex-grow text-sm pl-4 sm:text-xl'>Status</p>
                     <p className='flex-grow text-sm sm:text-xl'>Date Created</p>
-                  </div>
+                  </div> */}
+        {transaction.length === 0 ? (
+           <div className="text-center text-lg text-gray-500 mt-10">
+           No Transactions Yet
+         </div>
+        ) : (
+          <div className='flex transaction-list bg-[#FFE6E4] px-4 rounded-sm flex-wrap mt-10'>
+            <p className='flex-grow text-sm sm:text-xl'>Type</p>
+            <p className='flex-grow text-sm pl-9 sm:text-xl'>Amount</p>
+            <p className='flex-grow text-sm pl-4 sm:text-xl'>Status</p>
+            <p className='flex-grow text-sm sm:text-xl'>Date Created</p>
+          </div>
+        )}
 
+{transaction.length > 0 && (
             <div>
                   <ol className='flex flex-wrap px-4 mt-5'>
                     <li className=' flex-grow '>{transaction.map((transactions, index) => (
@@ -247,6 +233,7 @@ const Dashboard = () => {
                     ))}</li>
                   </ol>
                   </div>
+                    )}
                 </div>
               </div>
 

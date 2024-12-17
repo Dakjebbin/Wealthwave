@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react' 
 import "../styles/login.css"
-
 import eye from "../assets/eye.svg"
 import eyeOff from "../assets/eye-off.svg"
 import mail from "../assets/mail.svg"
@@ -8,7 +7,6 @@ import {useNavigate } from 'react-router-dom'
 import axios from "axios"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import { assets } from '../assets/assest'
 import "../styles/about.css"
 import { FaSpinner } from 'react-icons/fa'
 
