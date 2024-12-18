@@ -28,6 +28,7 @@ import dash_deposit2 from "./Rectangle 101.png";
 import dash_deposit3 from "./Rectangle 89.png";
 import contact_page_image from "./Rectangle 98.png"
 import contact_page_image_2 from "./Rectangle 94.png"
+import confirmation_image from "./Rectangle 122.png"
 
 export const assets = {
     back, 
@@ -35,6 +36,7 @@ export const assets = {
     earn,
     time,
     about_image,
+    confirmation_image,
     about_image_2,
     contact_page_image,
     contact_page_image_2,

@@ -16,11 +16,12 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { useAuthContext } from "../context/auth-context";
-import { Link, useLocation } from "react-router-dom";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { IoMdCopy } from "react-icons/io";
 import axios from "axios";
+import { FaSpinner } from "react-icons/fa";
 
 const DepositPage = () => {
 
@@ -31,6 +32,9 @@ const [btcPrice, setBtcPrice] = useState(null);
 const [ethPrice, setEthPrice] = useState(null);
 const [packageInput, setPackageInput] = useState("");
 const [rateLoading, setRateLoading] = useState(true);
+const [logging, setLogging] = useState(false);
+
+const navigate = useNavigate()
 
 const handlePaymentTypeChange = (e) => {
     const selectedPaymentType = e.target.value;
@@ -140,7 +144,7 @@ useEffect(() => {
   const baseUrl = import.meta.env.VITE_BASEURL
   
   const handleFunding = async (e) => {
-
+      setLogging(true)
     e.preventDefault();
       if(!userData.email) {
         toast.error("Please log in to fund your wallet");
@@ -171,7 +175,7 @@ useEffect(() => {
 
         if (response?.data && response?.data?.success) {
           toast.success("We have received your request, Please Upload Proof of Payment");
-
+          navigate("/confirmation")
         } else {
           toast.error("Failed to fund the wallet. Please try again.");
         }
@@ -181,9 +185,11 @@ useEffect(() => {
         } else {
           toast.error("Network or server error. Please try again.");
         }
+      } finally {
+        setLogging(false);
       }
       
-  }
+  } 
 
   return (
     <div className="bg-[#FE918C33] ">
@@ -333,11 +339,21 @@ useEffect(() => {
                 
                 </div>
 
-            <div className="flex justify-center ">
-                <button type="submit" className="bg-[#FE0000] px-9 font-bold py-2 rounded-lg">
-                    SUBMIT
-                </button>
-            </div>
+                <div className="flex justify-center "> 
+                <button type='submit' 
+                disabled={logging}
+                className="bg-[#FE0000] px-9 font-bold py-2 rounded-lg"
+                >
+                  {logging ? (
+                      <div className="flex items-center space-x-2 justify-center">
+                      <span className="animate-pulse">Loading</span>{" "}
+                      <FaSpinner className=" animate-spin " />
+                    </div>
+                  ) : (
+                  "SUBMIT"
+                  )}
+                  </button>
+                  </div>
             </form>
         </div>
 

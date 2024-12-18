@@ -18,6 +18,7 @@ import ForgotPassword from './components/ForgotPassword.jsx'
 import AboutUsComponent from './components/AboutUsComponent.jsx'
 import DepositPage from './components/DepositPage.jsx'
 import ContactUs from './components/ContactUs.jsx'
+import Confirmation from './components/Confirmation.jsx'
 
 
 
@@ -65,6 +66,9 @@ const router = createBrowserRouter([
       },{
         path:"/contactUs",
         element: <ContactUs/>
+      },{
+        path:"/confirmation",
+        element: <Confirmation/>
       }
      
   
