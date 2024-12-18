@@ -1,5 +1,3 @@
-"use client";
-
 import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts";
 
@@ -81,18 +79,14 @@ const handleCopyToClipboard = () => {
   const {packageName, price} = location.state || {};
    
 useEffect(() => {
-  const fetchRates = async (retryCount = 0) => {
+  const fetchRates = async () => {
    
-    if (retryCount >= 5) {
-      toast.error("Failed to fetch rates after 5 attempts, Please Refresh the Page");
-      return;
-    }
-
     try {
     
-      const response = await axios.get("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd");
-     const btc = response?.data?.bitcoin?.usd;
-     const eth = response?.data?.ethereum?.usd;
+      // const response = await axios.get("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,tether&vs_currencies=usd");
+      // console.log(response);
+      const btc = 101174;
+     const eth = 3695.91;
      
      setBtcPrice(btc);
      setEthPrice(eth);
@@ -101,7 +95,7 @@ useEffect(() => {
         toast.error(
            error?.response?.data
          );
-         setTimeout(() => fetchRates(retryCount + 1), 10000);
+        //  setTimeout(() => fetchRates(retryCount + 1), 10000);
        } else {
          toast.error("reg error => ", error);
        }
@@ -290,7 +284,7 @@ useEffect(() => {
                   value={paymentDetails}
                   onChange={(e) => setPaymentDetails(e.target.value)}
                   placeholder="Enter your BTC wallet address"
-                  className="pt-1 pb-1 pl-3 w-full font-bold text-[0.85rem] md:text-lg rounded-xl bg-[#FE918C]"
+                  className="pt-1 pb-1 pl-3 w-full pr-10  font-bold text-[0.85rem] md:text-lg rounded-xl bg-[#FE918C]"
                 />
                 <div className="absolute right-3 bottom-1 md:bottom-3 cursor-pointer">
                 <IoMdCopy 
