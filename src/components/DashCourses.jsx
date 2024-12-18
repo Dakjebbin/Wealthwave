@@ -12,7 +12,7 @@ import { PiHandWithdrawBold } from "react-icons/pi";
 import { IoIosContact } from "react-icons/io";
 import { IoIosLogOut } from "react-icons/io";
 import "../styles/dash-courses.css"
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 const DashCourses = () => {
   axios.defaults.withCredentials = true;

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { assets } from "../assets/assest"
+import { Link } from "react-router-dom"
 
 
 const OurCourses = () => {
@@ -15,7 +16,9 @@ const OurCourses = () => {
         to transform your life and achieve your goals.
         </p>
         <div>
+          <Link to="/register">
         <Button className="font-bold text-lg" variant="outline">Explore Courses</Button>
+        </Link>
         </div>
         
     </div>

@@ -18,7 +18,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { useAuthContext } from "../context/auth-context";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { IoMdCopy } from "react-icons/io";
@@ -80,7 +80,9 @@ const handleCopyToClipboard = () => {
     <div className="bg-[#FE918C33] ">
         {userData && (
       <main className="m-auto w-[90%]">
+        <Link to="/dashboard">
       <button className="bg-[#FF0C00] p-3 mt-5 mr-4 text-white font-bold font-playfair rounded-lg ">Dashboard</button>
+      </Link>
         <Card className="mt-5">
           <CardHeader>
             <CardTitle className="text-[#FE918C]">Analytics</CardTitle>
