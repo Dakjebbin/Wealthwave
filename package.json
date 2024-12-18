@@ -26,6 +26,7 @@
     "react-icons": "^5.4.0",
     "react-router-dom": "^6.28.0",
     "react-toastify": "^10.0.6",
+    "recharts": "^2.15.0",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "vite-plugin-react": "^4.0.1"

@@ -12,6 +12,7 @@ import { PiHandWithdrawBold } from "react-icons/pi";
 import { IoIosContact } from "react-icons/io";
 import { IoIosLogOut } from "react-icons/io";
 import "../styles/dash-courses.css"
+import { Link, useNavigate } from "react-router-dom";
 
 const DashCourses = () => {
   axios.defaults.withCredentials = true;
@@ -20,6 +21,11 @@ const DashCourses = () => {
   const [loggingOut, setLoggingOut] = useState(false);
 
   const baseUrl = import.meta.env.VITE_BASEURL;
+  const navigate = useNavigate();
+
+  const handleBuyClick = (packageName, price) => {
+    navigate("/deposit", {state: {packageName, price}});
+  }
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -269,7 +275,11 @@ const DashCourses = () => {
                     </div>
                     <p className="text-[#4D4C4C]">Total Sales - 4569</p>
                   </div>
-                  <button className="font-bold">BUY</button>
+                  <div className=" flex items-center justify-center">
+                    
+                  <button onClick={() => handleBuyClick("DBA", 200)} className="font-bold text-xl ">BUY</button>
+                  
+                  </div>
                   </div>
                   
                   <div className="flex-grow basis-40">
@@ -281,45 +291,57 @@ const DashCourses = () => {
                     </div>
                     <p className="text-[#4D4C4C]">Total Sales - 5236</p>
                   </div>
-                  <button className="font-bold">BUY</button>
+                  <div className=" flex items-center justify-center">
+                  <button onClick={() => handleBuyClick("UBC", 500)} className="font-bold text-xl ">
+                    BUY
+                    </button>
+                  </div>
                   </div>
 
                   <div className="flex-grow basis-40">
-                    <div className="bg-[#FFBBB8] mb-4 hover:-translate-y-3 duration-500 shadow-md shadow-[#4D4C4C] pt-10 px-1 rounded-lg pb-3 dash-courses-text">
-                    <p className="text-center text-xl pb-2">DBA <br /> (Digital Beginners Academy)</p>
-                    <p className="text-center text-[16px]">$200 to earn <br /> $2,000 - $4,000</p>
+                    <div className="bg-[#FFBBB8] mb-4 hover:-translate-y-3 h-80 duration-500 shadow-md shadow-[#4D4C4C] pt-10 px-1 rounded-lg pb-3 dash-courses-text">
+                    <p className="text-center text-xl pb-2">Legacy Builders</p>
+                    <p className="text-center text-[16px]">$900 to earn <br /> $10,000 - $12,000</p>
                     <div className="w-56 m-auto pb-2 pt-3">
-                      <img className="w-full" src={assets.buy_courses} alt="" />
+                      <img className="w-full" src={assets.dash_deposit1} alt="" />
                     </div>
-                    <p className="text-[#4D4C4C]">Total Sales - 4569</p>
+                    <p className="text-[#4D4C4C] mt-5">Total Sales - 4569</p>
                   </div>
-                  <button className="font-bold">BUY</button>
+                  <div className=" flex items-center justify-center">
+                  <button onClick={() => handleBuyClick("Legacy Builders", 900)} className="font-bold text-xl ">BUY</button>
+                  
+                  </div>
                   </div>
 
                   <div className="flex-grow basis-40">
-                    <div className="bg-[#FFBBB8] mb-4 hover:-translate-y-3 duration-500 shadow-md shadow-[#4D4C4C] pt-10 px-1 rounded-lg pb-3 dash-courses-text">
-                    <p className="text-center text-xl pb-2">DBA <br /> (Digital Beginners Academy)</p>
-                    <p className="text-center text-[16px]">$200 to earn <br /> $2,000 - $4,000</p>
+                    <div className="bg-[#FFBBB8] mb-4 h-80 hover:-translate-y-3 duration-500 shadow-md shadow-[#4D4C4C] pt-10 px-1 rounded-lg pb-3 dash-courses-text">
+                    <p className="text-center text-xl pb-2">Click Bank</p>
+                    <p className="text-center text-[16px]">$2000 to earn <br /> $20,000 - $25,000</p>
                     <div className="w-56 m-auto pb-2 pt-3">
-                      <img className="w-full" src={assets.buy_courses} alt="" />
+                      <img className="w-full" src={assets.dash_deposit2} alt="" />
                     </div>
                     <p className="text-[#4D4C4C]">Total Sales - 4569</p>
                   </div>
-                  <button className="font-bold">BUY</button>
+                  <div className=" flex items-center justify-center">
+                  <button onClick={() => handleBuyClick("Click Bank", 2000)} className="font-bold text-xl ">BUY</button>
+                  
+                  </div>
                   </div>
                 </div>
  
                 <div className="mt-7 flex flex-wrap gap-7">
                 <div className=" basis-40">
-                    <div className="bg-[#FFBBB8] mb-4 hover:-translate-y-3 duration-500 shadow-md shadow-[#4D4C4C] pt-10 px-1 rounded-lg pb-3 dash-courses-text">
-                    <p className="text-center text-xl pb-2">DBA <br /> (Digital Beginners Academy)</p>
-                    <p className="text-center text-[16px]">$200 to earn <br /> $2,000 - $4,000</p>
+                    <div className="bg-[#FFBBB8] h-80 mb-4 hover:-translate-y-3 duration-500 shadow-md shadow-[#4D4C4C] pt-10 px-1 rounded-lg pb-3 dash-courses-text">
+                    <p className="text-center text-xl pb-2">Amazon</p>
+                    <p className="text-center text-[16px]">$4000 to earn <br /> $40,000 - $45,000</p>
                     <div className="w-56 m-auto pb-2 pt-3">
-                      <img className="w-full" src={assets.buy_courses} alt="" />
+                      <img className="w-full" src={assets.dash_deposit3} alt="" />
                     </div>
                     <p className="text-[#4D4C4C]">Total Sales - 4569</p>
                   </div>
-                  <button className="font-bold">BUY</button>
+                  <div className=" flex items-center justify-center">
+                  <button onClick={() => handleBuyClick("Amazon", 4000)} className="font-bold text-xl ">BUY</button>
+                  </div>
                   </div>
 
                   <div className="flex-grow basis-96 ">

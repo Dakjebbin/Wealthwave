@@ -16,6 +16,7 @@ import Sidebar from './components/Sidebar.jsx'
 import DashCourses from './components/DashCourses.jsx'
 import ForgotPassword from './components/ForgotPassword.jsx'
 import AboutUsComponent from './components/AboutUsComponent.jsx'
+import DepositPage from './components/DepositPage.jsx'
 
 
 
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       },{
         path:"/courses",
         element: <DashCourses/>
+      },
+      {
+        path:"/deposit",
+        element: <DepositPage/>
       }
      
   

@@ -73,7 +73,7 @@ const Footer = () => {
           </div>
      <div className="bg-[#FFE6E4] p-2 text-xl italic">
       <p className="text-center">
-      © 2022 Growvests. All Rights Reserved.
+      © 2022 WealthWave. All Rights Reserved.
       </p>
      </div>
     </footer>

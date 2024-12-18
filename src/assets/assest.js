@@ -20,7 +20,13 @@ import contact_2 from "./fluent-mdl2_contact.png";
 import  withdrw from "./icon-park-solid_folder-withdrawal.png";
 import icon_course from "./icomoon-free_books.svg";
 import buy_courses from "./buy-courses.png";
-import buy_courses_2 from "./Rectangle 90.png"
+import buy_courses_2 from "./Rectangle 90.png";
+import about_com1 from "./Rectangle 75.png";
+import about_com2 from "./Rectangle 76.png";
+import dash_deposit1 from "./Rectangle 91.png";
+import dash_deposit2 from "./Rectangle 101.png";
+import dash_deposit3 from "./Rectangle 89.png";
+
 export const assets = {
     back, 
     books,
@@ -28,8 +34,13 @@ export const assets = {
     time,
     about_image,
     about_image_2,
+    about_com1,
+    about_com2,
     loginImage,
     why,
+    dash_deposit1,
+    dash_deposit2,
+    dash_deposit3,
     buy_courses,
     buy_courses_2,
     support,
