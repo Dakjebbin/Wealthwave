@@ -247,6 +247,14 @@ const DashCourses = () => {
                 <p className='text-xl font-bold'> <span className='text-[#FE0000] '>Welcome</span> Back {userData?.username}</p>
               </div>
 
+              {userData.status === "blocked" ? (
+                  <div className='bg-red-500 w-full mt-3 text-center text-white py-1 rounded-lg text-lg font-semibold'>
+        Error Occurred. Please Contact Admin
+      </div>
+      ) : (
+        <span></span>
+      )}
+
               <div className="flex gap-10 flex-wrap mt-10">
                 <div className="bg-[#FFBBB8] basis-80 flex-grow rounded-md p-10">
                     <p className="text-3xl font-bold">

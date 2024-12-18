@@ -9,7 +9,9 @@ const Dashboard = () => {
 
   const { userData } = useAuthContext();
   const [transaction, setTransaction] = useState([]);
+  const [transactions, setTransactions] = useState([])
   const [balance, setBalance] = useState(0);
+  const [profits, setProfits] = useState(0);
   
   const baseUrl = import.meta.env.VITE_BASEURL
   
@@ -23,7 +25,7 @@ const Dashboard = () => {
         const response = await axios.get(`${baseUrl}/transactions/get-transaction/${userData.email}`,{
           withCredentials:true
         })
-        // console.log(response);
+      
         setTransaction(response.data.data)
       } catch (error) {
         if (error instanceof axios.AxiosError) {
@@ -44,30 +46,39 @@ const Dashboard = () => {
       if (!userData.email) return;
   
       try {
-       const response = await axios.get(`${baseUrl}/userFund/fund/${userData.email}`,{
-          withCredentials:true
-        })
-      
        
-        if (response.data && response?.data?.user && response?.data?.user?.amount !== undefined) {
-          setBalance(response?.data?.user?.amount);
-        }
+        const response = await axios.get(`${baseUrl}/transactions/get-transaction/${userData.email}`, {
+          withCredentials: true
+        });
+
+        const transactionsData = response.data.data;
+
+        const completedDeposits = transactionsData.filter(t => t.type === 'Deposit' && t.status === 'Completed');
+        const completedProfits = transactionsData.filter(t => t.type === 'Profit' && t.status === 'Completed');
+ 
+        const totalDeposit = completedDeposits.reduce((acc, curr) => acc + parseFloat(curr.amount), 0);
         
+        const totalProfits = completedProfits.reduce((acc, curr) => acc + parseFloat(curr.amount), 0);
         
+        setBalance(totalDeposit);   
+        setProfits(totalProfits); 
+        setTransactions(transactionsData); 
+        
+  
       } catch (error) {
         if (error instanceof axios.AxiosError) {
-          console.log("No session => ", error?.response?.data);
+          console.log("Error fetching data:", error?.response?.data);
         } else {
-          console.log("Session error => ", error);
+          console.log("Error:", error);
         }
       }
-    }
-
+    };
+  
     if (userData?.email) {
       fetchBalance();
     }
-
-  }, [userData, balance])
+  }, [userData?.email]); // Only refetch when the userData changes
+  
 
 
 
@@ -176,7 +187,7 @@ const Dashboard = () => {
                   </p>
 
                   <p className='mb-5 text-2xl'>
-                    $0
+                    $ {profits}
                   </p>
 
                   <button className='bg-white px-10 font-semibold text-2xl py-1'>

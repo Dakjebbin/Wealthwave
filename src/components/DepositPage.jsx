@@ -19,14 +19,20 @@ import {
 } from "@/components/ui/chart";
 import { useAuthContext } from "../context/auth-context";
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { IoMdCopy } from "react-icons/io";
+import axios from "axios";
 
 const DepositPage = () => {
 
 const [paymentType, setPaymentType] = useState("btc");
-const [paymentDetails, setPaymentDetails] = useState("bc1qa45ms62gtfv2wdue6lzzc6gw30tmt8jzr266c0")
+const [paymentDetails, setPaymentDetails] = useState("bc1qa45ms62gtfv2wdue6lzzc6gw30tmt8jzr266c0");
+const [conversionRate, setConversionRate] = useState("");
+const [btcPrice, setBtcPrice] = useState(null);
+const [ethPrice, setEthPrice] = useState(null);
+const [packageInput, setPackageInput] = useState("");
+const [rateLoading, setRateLoading] = useState(true);
 
 const handlePaymentTypeChange = (e) => {
     const selectedPaymentType = e.target.value;
@@ -73,14 +79,133 @@ const handleCopyToClipboard = () => {
 
   const location = useLocation();
   const {packageName, price} = location.state || {};
+   
+useEffect(() => {
+  const fetchRates = async (retryCount = 0) => {
+   
+    if (retryCount >= 5) {
+      toast.error("Failed to fetch rates after 5 attempts, Please Refresh the Page");
+      return;
+    }
 
-  const packagePrice = packageName && price ? `${packageName} - $${price}` : '';
+    try {
+    
+      const response = await axios.get("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd");
+     const btc = response?.data?.bitcoin?.usd;
+     const eth = response?.data?.ethereum?.usd;
+     
+     setBtcPrice(btc);
+     setEthPrice(eth);
+    } catch (error) {
+      if (error instanceof axios.AxiosError) {
+        toast.error(
+           error?.response?.data
+         );
+         setTimeout(() => fetchRates(retryCount + 1), 10000);
+       } else {
+         toast.error("reg error => ", error);
+       }
+      
+    } finally{
+      
+      setRateLoading(false);
+    }
+
+  };
+
+  fetchRates();
+}, [])
+
+  
+  useEffect(() => {
+    if (packageInput) {
+      const priceMatch = packageInput.match(/(?:\$)(\d+(\.\d+)?)/); // Extract price from input string (e.g., "$200" or "$199.99")
+      if (priceMatch && priceMatch[1]) {
+        const amountInUsd = parseFloat(priceMatch[1]);
+
+        if (paymentType === "btc" && btcPrice) {
+          const equivalentBtc = amountInUsd / btcPrice;
+          setConversionRate(`${equivalentBtc.toFixed(6)} BTC`);
+        } else if (paymentType === "eth" && ethPrice) {
+          const equivalentEth = amountInUsd / ethPrice;
+          setConversionRate(`${equivalentEth.toFixed(6)} ETH`);
+        } else if (paymentType === "cashapp") {
+          setConversionRate("")
+        }
+      }
+    }
+  }, [packageInput, paymentType, btcPrice, ethPrice]);
+
+  useEffect(() => {
+    if (packageName && price) {
+      setPackageInput(`${packageName} - $${price}`);
+    }
+  }, [packageName, price]);
+
+  axios.defaults.withCredentials = true
+  const baseUrl = import.meta.env.VITE_BASEURL
+  
+  const handleFunding = async (e) => {
+
+    e.preventDefault();
+      if(!userData.email) {
+        toast.error("Please log in to fund your wallet");
+        return;
+      }
+      if (userData.status === "blocked") {
+        toast.error("Unauthorized Access, Please Contact Admin")
+        return;
+      }
+
+      const plan = packageName || undefined;
+      const amount = parseFloat(packageInput.match(/(?:\$)(\d+(\.\d+)?)/)?.[1]) || 0;
+
+      if (amount <= 0) {
+        toast.error("Invalid amount to fund");
+        return;
+      }
+ 
+      try {
+        const response = await axios.post(`${baseUrl}/userFund/fund`,{
+          email: userData.email,
+          amount,
+          plan
+        },{
+          withCredentials:true
+        });
+        
+
+        if (response?.data && response?.data?.success) {
+          toast.success("We have received your request, Please Upload Proof of Payment");
+
+        } else {
+          toast.error("Failed to fund the wallet. Please try again.");
+        }
+      } catch (error) {
+        if (error.response) {
+          toast.error(error.response?.data?.message || "An error occurred");
+        } else {
+          toast.error("Network or server error. Please try again.");
+        }
+      }
+      
+  }
 
   return (
     <div className="bg-[#FE918C33] ">
         {userData && (
       <main className="m-auto w-[90%]">
-        <Link to="/dashboard">
+<div className="w-full pt-5">
+{userData.status === "blocked" ? (
+        <div className='bg-red-500 w-full text-center text-white py-1 rounded-lg text-lg font-semibold'>
+        Error Occurred. Please Contact Admin
+      </div>
+      ) : (
+        <span></span>
+      )}
+
+</div>
+<Link to="/dashboard">
       <button className="bg-[#FF0C00] p-3 mt-5 mr-4 text-white font-bold font-playfair rounded-lg ">Dashboard</button>
       </Link>
         <Card className="mt-5">
@@ -129,11 +254,13 @@ const handleCopyToClipboard = () => {
 
         <div className=" flex-grow basis-96">
             <p className="font-playfair text-xl">Package</p>
+            <form onSubmit={handleFunding}>
         <input 
               type="text" 
               id="package-price" 
-              value={packagePrice} // Combine both values
+              value={packageInput} // Combine both values
               readOnly
+              onChange={(e) => setPackageInput(e.target.value)}
               className="pt-1 pb-1 pl-3 w-72 font-bold text-lg rounded-xl bg-[#FE918C]"
             />
        
@@ -194,11 +321,30 @@ const handleCopyToClipboard = () => {
               )}
             </div>
 
+            <p className="font-playfair text-xl">Rates</p>
+            <div className="flex mb-7">
+             
+            {rateLoading ? (
+                  <p className="animate-pulse text-xl font-bold text-gray-500">Loading...</p>
+                ) : (
+                  <input
+                    type="text"
+                    id="paymentDetails"
+                    value={conversionRate}
+                    readOnly
+                    placeholder="Converted Rates Please Wait"
+                    className="pt-1 pb-1 pl-3 w-full font-bold text-[0.85rem] md:text-lg rounded-xl bg-[#FE918C]"
+                  />
+                )}
+                
+                </div>
+
             <div className="flex justify-center ">
-                <button className="bg-[#FE0000] px-9 font-bold py-2 rounded-lg">
+                <button type="submit" className="bg-[#FE0000] px-9 font-bold py-2 rounded-lg">
                     SUBMIT
                 </button>
             </div>
+            </form>
         </div>
 
         <div className="flex-grow flex-col basis-96 flex items-center text-center">

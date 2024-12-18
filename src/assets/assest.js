@@ -26,6 +26,8 @@ import about_com2 from "./Rectangle 76.png";
 import dash_deposit1 from "./Rectangle 91.png";
 import dash_deposit2 from "./Rectangle 101.png";
 import dash_deposit3 from "./Rectangle 89.png";
+import contact_page_image from "./Rectangle 98.png"
+import contact_page_image_2 from "./Rectangle 94.png"
 
 export const assets = {
     back, 
@@ -34,6 +36,8 @@ export const assets = {
     time,
     about_image,
     about_image_2,
+    contact_page_image,
+    contact_page_image_2,
     about_com1,
     about_com2,
     loginImage,

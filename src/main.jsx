@@ -17,6 +17,7 @@ import DashCourses from './components/DashCourses.jsx'
 import ForgotPassword from './components/ForgotPassword.jsx'
 import AboutUsComponent from './components/AboutUsComponent.jsx'
 import DepositPage from './components/DepositPage.jsx'
+import ContactUs from './components/ContactUs.jsx'
 
 
 
@@ -61,6 +62,9 @@ const router = createBrowserRouter([
       {
         path:"/deposit",
         element: <DepositPage/>
+      },{
+        path:"/contactUs",
+        element: <ContactUs/>
       }
      
   
