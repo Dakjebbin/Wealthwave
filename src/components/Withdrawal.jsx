@@ -14,9 +14,10 @@ import { IoIosLogOut } from "react-icons/io";
 import { IoMdWallet } from "react-icons/io";
 import { FaSignal } from "react-icons/fa";
 import { PiHandDepositBold } from "react-icons/pi";
-import Dashboard from "./Dashboard";
+// import Dashboard from "./Dashboard";
+import PinModal from "./PinModal";
 
-const Sidebar = () => {
+const Withdrawal = () => {
   axios.defaults.withCredentials = true;
   const { userData } = useAuthContext();
   const [open, setOpen] = useState(true);
@@ -104,6 +105,28 @@ const Sidebar = () => {
 
   const handleToggle = () => {
     setIsNavActive(!isNavActive);
+  };
+
+  const [paymentChannel, setPaymentChannel] = useState('btc');
+  const [paymentDetail, setPaymentDetail] = useState('');
+  const [amount, setAmount] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [balance] = useState(0);
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!paymentDetail || !amount) {
+      alert('Please enter payment details and amount');
+      return;
+    }
+
+    if (parseFloat(amount) > balance) {
+        alert('Withdrawal amount exceeds available balance.');
+        return;
+      }
+
+
+    setShowModal(true); // Show the modal when submitting
   };
 
   return (
@@ -247,7 +270,75 @@ const Sidebar = () => {
           <div
             className={`flex-1 p-5 overflow-auto  md:max-h-screen transition-all duration-500 ${open ? "ml-4" : "ml-5"}`}
           >
-            <Dashboard />
+            <div>
+            <div>
+                <p className='text-xl font-bold'> <span className='text-[#FE0000] '>Welcome</span> Back {userData?.username}</p>
+              </div>
+
+<div className="min-h-screen  flex justify-center items-center">
+<div className="bg-gray-100 p-8 rounded-lg shadow-lg w-96">
+      <h1 className="text-2xl font-semibold mb-6 text-center">Withdrawal</h1>
+      <div className="mb-4">
+        <p className="text-lg">Available Balance: <span className="font-bold">${balance}</span></p>
+      </div>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Select Payment Channel</label>
+          <select
+            id="paymentChannel"
+            value={paymentChannel}
+            onChange={(e) => setPaymentChannel(e.target.value)}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+          >
+            <option value="btc">BTC Wallet Address</option>
+            <option value="cashapp">CashApp</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Enter Payment Details</label>
+          <input
+            type="text"
+            id="paymentDetail"
+            value={paymentDetail}
+            onChange={(e) => setPaymentDetail(e.target.value)}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+            placeholder="Enter BTC Address or CashApp Username"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Enter Amount to Withdraw</label>
+          <input
+            type="number"
+            id="amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+            placeholder="Amount"
+            min="1"
+            max={balance}
+            required
+          />
+        </div>
+
+        <div className="text-center">
+          <button
+            type="submit"
+            className="w-full bg-[#EDA9A6] text-white font-bold p-2 rounded-md hover:bg-[#9c504c]"
+          >
+            Withdraw
+          </button>
+        </div>
+      </form>
+
+      {/* Pin Modal */}
+      {showModal && <PinModal setShowModal={setShowModal} />}
+    </div>
+
+</div>
+            </div>
           </div>
         </>
       )}
@@ -257,4 +348,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default Withdrawal;

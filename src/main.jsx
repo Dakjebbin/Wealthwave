@@ -19,6 +19,7 @@ import AboutUsComponent from './components/AboutUsComponent.jsx'
 import DepositPage from './components/DepositPage.jsx'
 import ContactUs from './components/ContactUs.jsx'
 import Confirmation from './components/Confirmation.jsx'
+import Withdrawal from './components/Withdrawal.jsx'
 
 
 
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       },{
         path:"/confirmation",
         element: <Confirmation/>
+      },
+      {
+        path:"/Withdraw",
+        element: <Withdrawal/>
       }
      
   

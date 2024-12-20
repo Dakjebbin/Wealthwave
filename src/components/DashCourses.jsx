@@ -5,11 +5,11 @@ import { MdDashboard } from "react-icons/md";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaBook, FaSpinner } from "react-icons/fa";
+import { FaBook, FaSignal, FaSpinner } from "react-icons/fa";
 import axios from "axios";
 import { MdOutlineMenuOpen } from "react-icons/md";
-import { PiHandWithdrawBold } from "react-icons/pi";
-import { IoIosContact } from "react-icons/io";
+import { PiHandDepositBold} from "react-icons/pi";
+import { IoIosContact, IoMdWallet } from "react-icons/io";
 import { IoIosLogOut } from "react-icons/io";
 import "../styles/dash-courses.css"
 import {  useNavigate } from "react-router-dom";
@@ -54,7 +54,6 @@ const DashCourses = () => {
       setLoggingOut(false);
     }
   };
-
   const menuitems = [
     {
       icons: <MdDashboard size={30} />,
@@ -67,18 +66,24 @@ const DashCourses = () => {
       url: "/courses",
     },
     {
-      icons: <PiHandWithdrawBold size={30} />,
+      icons: <IoMdWallet size={30}/>,
       label: "Withdrawal",
+      url: "/Withdraw",
     },
     {
-      icons: <IoIosContact size={30} />,
-      label: "Contact Us",
+      icons: <PiHandDepositBold size={30}/>,
+      label: "Deposit",
+      url: "/courses",
     },
     {
+      icons: <FaSignal size={30}/>,
+      label: "Signal",
+    },{
       icons: <IoIosContact size={30} />,
-      label: "Settings",
+      label: "KYC",
     },
   ];
+ 
 
   const [isNavActive, setIsNavActive] = useState(false);
   const mobileNavRef = useRef(null);
@@ -285,7 +290,9 @@ const DashCourses = () => {
                   </div>
                   <div className=" flex items-center justify-center">
                     
-                  <button onClick={() => handleBuyClick("DBA", 200)} className="font-bold text-xl ">BUY</button>
+                  <button onClick={() => handleBuyClick("DBA", 200)} 
+                  disabled
+                  className="font-bold text-xl ">BUY</button>
                   
                   </div>
                   </div>
@@ -300,7 +307,9 @@ const DashCourses = () => {
                     <p className="text-[#4D4C4C]">Total Sales - 5236</p>
                   </div>
                   <div className=" flex items-center justify-center">
-                  <button onClick={() => handleBuyClick("UBC", 500)} className="font-bold text-xl ">
+                  <button onClick={() => handleBuyClick("UBC", 500)}
+                  disabled
+                  className="font-bold text-xl ">
                     BUY
                     </button>
                   </div>
@@ -316,7 +325,9 @@ const DashCourses = () => {
                     <p className="text-[#4D4C4C] mt-5">Total Sales - 4569</p>
                   </div>
                   <div className=" flex items-center justify-center">
-                  <button onClick={() => handleBuyClick("Legacy Builders", 900)} className="font-bold text-xl ">BUY</button>
+                  <button onClick={() => handleBuyClick("Legacy Builders", 900)} 
+                  disabled
+                  className="font-bold text-xl ">BUY</button>
                   
                   </div>
                   </div>
@@ -331,7 +342,9 @@ const DashCourses = () => {
                     <p className="text-[#4D4C4C]">Total Sales - 4569</p>
                   </div>
                   <div className=" flex items-center justify-center">
-                  <button onClick={() => handleBuyClick("Click Bank", 2000)} className="font-bold text-xl ">BUY</button>
+                  <button onClick={() => handleBuyClick("Click Bank", 2000)} 
+                  disabled
+                  className="font-bold text-xl ">BUY</button>
                   
                   </div>
                   </div>
@@ -348,7 +361,7 @@ const DashCourses = () => {
                     <p className="text-[#4D4C4C]">Total Sales - 4569</p>
                   </div>
                   <div className=" flex items-center justify-center">
-                  <button onClick={() => handleBuyClick("Amazon", 4000)} className="font-bold text-xl ">BUY</button>
+                  <button onClick={() => handleBuyClick("Amazon", 4000)} disabled className="font-bold text-xl ">BUY</button>
                   </div>
                   </div>
 

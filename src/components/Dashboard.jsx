@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react' //eslint-disable-line
 import { useAuthContext } from "../context/auth-context";
 import "../styles/dash.css"
+import { FaArrowRightArrowLeft } from "react-icons/fa6";  
+import { FaWallet } from "react-icons/fa6";
 
 //import { useParams } from "react-router-dom";
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 const Dashboard = () => {
 
   const { userData } = useAuthContext();
@@ -112,7 +114,7 @@ const Dashboard = () => {
                 <p className='text-xl font-bold'> <span className='text-[#FE0000] '>Welcome</span> Back {userData?.username}</p>
               </div>
 
-              <div className='bg-[#FF9994] flex flex-wrap p-10 gap-10 mt-8 rounded-md'>
+              {/* <div className='bg-[#FF9994] flex flex-wrap p-10 gap-10 mt-8 rounded-md'>
                 <div className='bg-white flex-grow basis-32 dash-text-box rounded-md flex p-5 flex-col items-center h-44 justify-between'>
                   <p className='font-medium'>
                     Total User
@@ -161,41 +163,105 @@ const Dashboard = () => {
                    </span>
                   </p>
                 </div>
-              </div>
+              </div> */}
 
-              <div className='flex flex-wrap gap-10 lg:gap-28 mt-9 '>
-                <div className='flex-grow basis-80 bg-[#FFBBB8] p-8 rounded-md fund-box items-center flex flex-col'>
-                  <p className='mb-5 text-3xl'>
-                    Balance
+              <div className='flex flex-wrap gap-1 lg:gap-4 mt-9 '>
+                <div className='flex-grow basis-96 bg-[#FFBBB8] p-8 rounded-md fund-box flex flex-col'>
+                  <p className='mb-4 text-2xl'>
+                    Capital
                   </p>
 
+                    <div className='flex justify-between'>
                   <p className='mb-5 text-2xl'>
                     $ {balance}
                   </p>
+                  <div>
+                  <FaWallet size={25}/>
+                  </div>
+                  </div>
 
-                  <Link to="/courses">
+                  {/* <Link to="/courses">
                   <button className='bg-white text-2xl font-semibold px-9 py-1'>
                     + Fund Account
                   </button>
-                  </Link>
+                  </Link> */}
                 </div>
 
-                <div className='flex-grow basis-80 bg-[#FFBBB8] p-8 rounded-md fund-box items-center flex flex-col'>
+                <div className='flex-grow basis-96 bg-[#FFBBB8] p-8 rounded-md fund-box flex flex-col'>
                  
-                  <p className='mb-5 text-3xl'>
-                    Profits
-                  </p>
-
                   <p className='mb-5 text-2xl'>
-                    $ {profits}
+                    Accumulating Balance
                   </p>
 
-                  <button className='bg-white px-10 font-semibold text-2xl py-1'>
+                  <div className='flex justify-between'>
+                  <p className='mb-5 text-2xl'>
+                    $ {balance}
+                  </p>
+                  <div>
+                  <FaArrowRightArrowLeft size={25}/>
+                  </div>
+                  </div>
+
+                  {/* <button className='bg-white px-10 font-semibold text-2xl py-1'>
                    Transfer
                   </button>
-                  
+                   */}
                 </div>
+
               </div>
+              {/* second box */}
+              <div className='flex flex-wrap gap-1 lg:gap-4 mt-5'>
+              <div className='flex-grow basis-96 bg-[#FFBBB8] p-8 rounded-md fund-box flex flex-col'>
+                 
+                 <p className='mb-5 text-2xl'>
+                   Profits
+                 </p>
+
+                 <p className='mb-5 text-2xl'>
+                   $ {profits}
+                 </p>
+
+                 {/* <button className='bg-white px-10 font-semibold text-2xl py-1'>
+                  Transfer
+                 </button>
+                  */}
+               </div>
+               <div className='flex-grow basis-96 bg-[#FFBBB8] p-8 rounded-md fund-box flex flex-col'>
+                 
+                 <p className='mb-5 text-2xl'>
+                   Trade Status
+                 </p>
+
+                  <div className='flex justify-between'>
+                    <div>
+                 <span className='flex'>
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M22.4653 19.5319L16.4062 9.03751C15.6328 7.69689 14.3672 7.69689 13.5938 9.03751L7.53469 19.5319C6.76125 20.8725 7.39406 21.9675 8.94094 21.9675H21.0591C22.6059 21.9675 23.2388 20.8706 22.4653 19.5319Z" fill="#14AE5C"/>
+                    </svg>
+                   <span className='font-bold'> 0</span>
+                   </span>
+                   <p className='ml-6'>Total Won</p>
+                   </div>
+
+                    <div>
+                   <span className='flex'>
+                   <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.53461 10.4681L13.5937 20.9625C14.3671 22.3031 15.6327 22.3031 16.4062 20.9625L22.4652 10.4672C23.2396 9.12655 22.6059 8.03156 21.059 8.03156H8.94086C7.39399 8.03156 6.76024 9.12749 7.53461 10.4681Z" fill="#FE0000"/>
+                  </svg>
+
+                   <span className='font-bold'> 0</span>
+                   </span>
+                   <p className='ml-6'>Total Loss</p>
+                   </div>
+                   </div>
+                 
+
+                 {/* <button className='bg-white px-10 font-semibold text-2xl py-1'>
+                  Transfer
+                 </button>
+                  */}
+               </div>
+               </div>
 
                 <div>
                 <h2 className='text-center mt-10 font-semibold text-2xl'>Transaction History</h2>
