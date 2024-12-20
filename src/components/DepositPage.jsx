@@ -175,7 +175,7 @@ useEffect(() => {
 
         if (response?.data && response?.data?.success) {
           toast.success("We have received your request, Please Upload Proof of Payment");
-          navigate("/confirmation")
+          navigate("/confirmation",  { state: { amount, plan } })
         } else {
           toast.error("Failed to fund the wallet. Please try again.");
         }
