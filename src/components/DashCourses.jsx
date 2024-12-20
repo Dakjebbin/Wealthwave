@@ -78,6 +78,7 @@ const DashCourses = () => {
     {
       icons: <FaSignal size={30}/>,
       label: "Signal",
+      url: "/signal",
     },{
       icons: <IoIosContact size={30} />,
       label: "KYC",

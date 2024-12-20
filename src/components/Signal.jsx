@@ -15,9 +15,8 @@ import { IoMdWallet } from "react-icons/io";
 import { FaSignal } from "react-icons/fa";
 import { PiHandDepositBold } from "react-icons/pi";
 // import Dashboard from "./Dashboard";
-import PinModal from "./PinModal";
 
-const Withdrawal = () => {
+const Sidebar = () => {
   axios.defaults.withCredentials = true;
   const { userData } = useAuthContext();
   const [open, setOpen] = useState(true);
@@ -108,34 +107,43 @@ const Withdrawal = () => {
     setIsNavActive(!isNavActive);
   };
 
-  const [paymentChannel, setPaymentChannel] = useState('btc');
-  const [paymentDetail, setPaymentDetail] = useState('');
-  const [amount, setAmount] = useState('');
-  const [showModal, setShowModal] = useState(false);
-  const [balance] = useState(0);
+  const [code, setCode] = useState('');
+  const [lastUpdated, setLastUpdated] = useState(null);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!paymentDetail || !amount) {
-      alert('Please enter payment details and amount');
-      return;
-    }
+  useEffect(() => {
+    if (userData?.status === 'blocked') {
+      const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
 
-    if (parseFloat(amount) > balance) {
-        alert('Withdrawal amount exceeds available balance.');
-        return;
+      // Check if the code was generated for today already
+      if (lastUpdated !== today) {
+        // Generate a code based on today's date
+        const generatedCode = generateCodeFromDate(today);
+        setCode(generatedCode);
+        setLastUpdated(today); // Update the lastUpdated state
       }
+    }
+  }, [userData, lastUpdated]);
 
-
-    setShowModal(true); // Show the modal when submitting
+  const generateCodeFromDate = (date) => {
+    const hash = [...date].reduce((acc, char) => acc + char.charCodeAt(0), 0); 
+    const code = (hash % 900000) + 100000; 
+    return code;
   };
+
+
+  if (!userData) {
+    // Handle the case where userData is not available
+    return (
+      <div className="text-center p-5">
+        <p className="text-lg">Loading user data...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="md:flex">
       {userData && (
         <>
-
-        
           {/* Sidebar for Desktop */}
           <nav
             className={`shadow-md p-2 bg-[#FFBBB8] hidden flex-col ${open ? `w-60` : `w-16`} md:flex duration-500 sticky top-0 h-screen`}
@@ -273,82 +281,30 @@ const Withdrawal = () => {
           <div
             className={`flex-1 p-5 overflow-auto  md:max-h-screen transition-all duration-500 ${open ? "ml-4" : "ml-5"}`}
           >
-            <div>
-            <div>
-                <p className='text-xl font-bold'> <span className='text-[#FE0000] '>Welcome</span> Back {userData?.username}</p>
-              </div>
-              {userData.status === "blocked" ? (
-                  <div className='bg-red-500 w-full mt-3 text-center text-white py-1 rounded-lg text-lg font-semibold'>
-        Error Occurred. Please Contact Admin
-      </div>
-      ) : (
-        <span></span>
-      )}
-
-<div className="min-h-screen  flex justify-center items-center">
-<div className="bg-gray-100 p-8 rounded-lg shadow-lg w-96">
-      <h1 className="text-2xl font-semibold mb-6 text-center">Withdrawal</h1>
-      <div className="mb-4">
-        <p className="text-lg">Available Balance: <span className="font-bold">${balance}</span></p>
-      </div>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Select Payment Channel</label>
-          <select
-            id="paymentChannel"
-            value={paymentChannel}
-            onChange={(e) => setPaymentChannel(e.target.value)}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-          >
-            <option value="btc">BTC Wallet Address</option>
-            <option value="cashapp">CashApp</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Enter Payment Details</label>
-          <input
-            type="text"
-            id="paymentDetail"
-            value={paymentDetail}
-            onChange={(e) => setPaymentDetail(e.target.value)}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Enter BTC Address or CashApp Username"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Enter Amount to Withdraw</label>
-          <input
-            type="number"
-            id="amount"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Amount"
-            min="1"
-            max={balance}
-            required
-          />
-        </div>
-
+           <div>
+           <div className="p-5 bg-white shadow-lg rounded-md">
+      {userData?.status === 'active' ? (
         <div className="text-center">
-          <button
-            type="submit"
-            className="w-full bg-[#EDA9A6] text-white font-bold p-2 rounded-md hover:bg-[#9c504c]"
-          >
-            Withdraw
-          </button>
+          <h2 className="text-xl font-bold text-green-600">Signal Available</h2>
+          <p className="text-lg mt-4">You can continue with transactions.</p>
         </div>
-      </form>
-
-      {/* Pin Modal */}
-      {showModal && <PinModal setShowModal={setShowModal} />}
+      ) : userData?.status === 'blocked' ? (
+        <div className="text-center">
+          <h2 className="text-xl font-bold text-red-600">No Signal On your Account</h2>
+          <p className="text-lg mt-4">Here is your 6-digit code: </p>
+           <div className="mt-4 text-2xl font-bold text-blue-600">{code}</div> 
+          <p className='mt-4 text-lg'>To Purchase a Signal</p>
+        </div>
+      ) : (
+        <div className="text-center">
+          <h2 className="text-xl font-bold text-gray-600">Status Unknown</h2>
+          <p className="text-lg mt-4">Unable to determine the status of your account.</p>
+        </div>
+      )}
     </div>
+  
 
-</div>
-            </div>
+           </div>
           </div>
         </>
       )}
@@ -358,4 +314,4 @@ const Withdrawal = () => {
   );
 };
 
-export default Withdrawal;
+export default Sidebar;
