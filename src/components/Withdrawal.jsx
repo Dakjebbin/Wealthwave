@@ -274,16 +274,19 @@ const Withdrawal = () => {
             className={`flex-1 p-5 overflow-auto  md:max-h-screen transition-all duration-500 ${open ? "ml-4" : "ml-5"}`}
           >
             <div>
-            <div>
-                <p className='text-xl font-bold'> <span className='text-[#FE0000] '>Welcome</span> Back {userData?.username}</p>
-              </div>
+            
               {userData.status === "blocked" ? (
-                  <div className='bg-red-500 w-full mt-3 text-center text-white py-1 rounded-lg text-lg font-semibold'>
-        Error Occurred. Please Contact Admin
+                <div className="overflow-hidden bg-red-700 mb-5 rounded-lg">
+                  <div className=' w-full whitespace-nowrap animate-scroll mt-3 text-center text-white py-1 rounded-lg text-2xl font-semibold'>
+       An Error Occurred. Please Contact Support
+      </div>
       </div>
       ) : (
         <span></span>
       )}
+      <div>
+                <p className='text-xl font-bold'> <span className='text-[#FE0000] '>Welcome</span> Back {userData?.username}</p>
+              </div>
 
 <div className="min-h-screen  flex justify-center items-center">
 <div className="bg-gray-100 p-8 rounded-lg shadow-lg w-96">

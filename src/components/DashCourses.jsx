@@ -248,18 +248,21 @@ const DashCourses = () => {
           <div
             className={`flex-1 p-5 overflow-auto  md:max-h-screen transition-all duration-500 ${open ? "ml-4" : "ml-5"}`}
           >
-         
-            <div>
-                <p className='text-xl font-bold'> <span className='text-[#FE0000] '>Welcome</span> Back {userData?.username}</p>
-              </div>
+        
 
               {userData.status === "blocked" ? (
-                  <div className='bg-red-500 w-full mt-3 text-center text-white py-1 rounded-lg text-lg font-semibold'>
-        Error Occurred. Please Contact Admin
+                <div className="overflow-hidden bg-red-700 mb-5 rounded-lg w-full">
+                  <div className='  whitespace-nowrap animate-scroll mt-3 text-center text-white py-1 rounded-lg text-2xl font-semibold'>
+       An Error Occurred. Please Contact Support
+      </div>
       </div>
       ) : (
         <span></span>
       )}
+       
+       <div>
+                <p className='text-xl font-bold'> <span className='text-[#FE0000] '>Welcome</span> Back {userData?.username}</p>
+              </div>
 
               <div className="flex gap-10 flex-wrap mt-10">
                 <div className="bg-[#FFBBB8] basis-80 flex-grow rounded-md p-10">

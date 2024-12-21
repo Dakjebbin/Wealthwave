@@ -101,9 +101,11 @@ const Dashboard = () => {
               <div>
                 <div className='flex justify-between'>
                 {userData.status === "blocked" ? (
-                  <span className='bg-red-500 w-full text-center text-white py-1 rounded-lg text-lg font-semibold'>
-        Error Occurred. Please Contact Admin
-      </span>
+                <div className="overflow-hidden bg-red-700 mb-5 rounded-lg w-full">
+                  <div className='  whitespace-nowrap animate-scroll mt-3 text-center text-white py-1 rounded-lg text-2xl font-semibold'>
+       An Error Occurred. Please Contact Support
+      </div>
+      </div>
       ) : (
         <span></span>
       )}
@@ -229,7 +231,7 @@ const Dashboard = () => {
                <div className='flex-grow basis-96 bg-[#FFBBB8] p-8 rounded-md fund-box flex flex-col'>
                  
                  <p className='mb-5 text-2xl'>
-                   Trade Status
+                   Sales Status
                  </p>
 
                   <div className='flex justify-between'>
