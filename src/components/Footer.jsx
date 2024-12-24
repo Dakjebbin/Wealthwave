@@ -54,7 +54,9 @@ const Footer = () => {
             </ul>
 
             <div>
+              <Link to="/contactUs">
                 <a className="font-bold text-xl text-white" href="">Contact Us</a>
+                </Link>
               </div>
           </div>
 

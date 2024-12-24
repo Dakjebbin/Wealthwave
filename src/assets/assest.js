@@ -1,5 +1,6 @@
 import back from './bac2.jpeg';
 import logo from "./logo.jpg";
+import logo_2 from "./logo-removebg-preview.png"
 import books from "./twemoji_books.png";
 import earn from "./Vector.png";
 import time from "./typcn_time.png";
@@ -35,6 +36,7 @@ export const assets = {
     books,
     earn,
     time,
+    logo_2,
     about_image,
     confirmation_image,
     about_image_2,

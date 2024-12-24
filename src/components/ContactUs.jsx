@@ -23,9 +23,9 @@ const ContactUs = () => {
 
         <div className="bg-[#FFE6E4]">
 
-            <div className="flex m-auto w-[95%] gap-10 pt-14">
-                    <div className="flex-grow">
-                        <div className="w-[500px] mb-5">
+            <div className="flex m-auto flex-wrap w-[95%] md:w-[95%] gap-10 pt-14">
+                    <div className="flex-grow basis-52">
+                        <div className="w-[400px] md:w-[500px] mb-5">
                             <img className="w-full" src={assets.contact_page_image} alt="" />
                         </div>
 
@@ -71,13 +71,24 @@ const ContactUs = () => {
                             <button type="submit" className="bg-[#FE0000] text-white py-2 px-5 rounded-lg font-semibold">SEND</button>
                             </div>
                             </form>
+
+                            <div className="mb-10">
+                                <div>
+                        <a href="mailto:">Email</a>
+                        </div>
+                       <a className="text-xl font-playfair font-semibold" href="tel:+1(304) 685-1264"> Phone:- +1(304) 685-1264 </a> 
+                    </div>
                         </div>
                     </div>
-                    <div className="flex-grow">
+                    <div className="flex-grow hidden basis-52 md:flex">
                         <div className="w-[550px]">
                         <img className="w-full object-cover" src={assets.contact_page_image_2} alt="Contact" />
                         </div>
+
+                        
                     </div>
+
+                   
             </div>
         </div>
         <ToastContainer/>

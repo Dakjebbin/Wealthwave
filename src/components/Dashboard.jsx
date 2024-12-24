@@ -4,6 +4,7 @@ import "../styles/dash.css";
 import { FaArrowRightArrowLeft } from "react-icons/fa6";
 import { FaWallet } from "react-icons/fa6";
 import axios from 'axios';
+import Loader from './Loader';
 
 const Dashboard = () => {
   const { userData } = useAuthContext();
@@ -164,46 +165,27 @@ const Dashboard = () => {
                 No Transactions Yet
               </div>
             ) : (
-              <div className="flex transaction-list bg-[#FFE6E4] px-4 rounded-sm flex-wrap mt-10">
-                <p className="flex-grow text-sm sm:text-xl">Type</p>
-                <p className="flex-grow text-sm pl-9 sm:text-xl">Amount</p>
-                <p className="flex-grow text-sm pl-4 sm:text-xl">Status</p>
-                <p className="flex-grow text-sm sm:text-xl">Date Created</p>
-              </div>
-            )}
-
-            {transactions.length > 0 && (
-              <div>
-                <ol className="flex flex-wrap px-4 mt-5">
-                  <li className="flex-grow">
+              <div className="overflow-x-auto mt-10">
+                <table className="min-w-full bg-[#FFE6E4] rounded-sm">
+                  <thead>
+                    <tr className="text-sm sm:text-xl text-left bg-[#FFBBBB]">
+                      <th className="p-4">Type</th>
+                      <th className="p-4">Amount</th>
+                      <th className="p-4">Status</th>
+                      <th className="p-4">Date Created</th>
+                    </tr>
+                  </thead>
+                  <tbody>
                     {transactions.map((transaction, index) => (
-                      <div key={index} className="uppercase mb-3 text-sm sm:text-xl">
-                        {transaction.type}
-                      </div>
+                      <tr key={index} className="border-b border-[#FFD7D2]">
+                        <td className="p-4">{transaction.type}</td>
+                        <td className="p-4">${transaction.amount}</td>
+                        <td className="p-4">{transaction.status}</td>
+                        <td className="p-4">{formatDate(transaction.createdAt)}</td>
+                      </tr>
                     ))}
-                  </li>
-                  <li className="flex-grow">
-                    {transactions.map((transaction, index) => (
-                      <div key={index} className="mb-3 text-sm sm:text-xl">
-                        ${transaction.amount}
-                      </div>
-                    ))}
-                  </li>
-                  <li className="flex-grow">
-                    {transactions.map((transaction, index) => (
-                      <div key={index} className="mb-3 text-sm sm:text-xl">
-                        {transaction.status}
-                      </div>
-                    ))}
-                  </li>
-                  <li className="flex-grow">
-                    {transactions.map((transaction, index) => (
-                      <div key={index} className="mb-3 text-sm sm:text-xl">
-                        {formatDate(transaction.createdAt)}
-                      </div>
-                    ))}
-                  </li>
-                </ol>
+                  </tbody>
+                </table>
               </div>
             )}
           </div>

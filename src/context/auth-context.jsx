@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Loader from "../components/Loader";
 // import { AlertCircle } from "lucide-react"
 // import {
 //   Alert,
@@ -19,10 +20,12 @@ const useAuthContext = () => {
 const AuthContextProvider = ({ children }) => {    
     const baseUrl = import.meta.env.VITE_BASEURL
    const [userData, setUserData] = useState(null);
+   const [loading, setLoading] = useState(true);
 //   const [sessionExpired, setSessionExpired] = useState(false)
 
    useEffect(() => {
     const validResponse = async () => {
+      setLoading(true);
         try {
             const response = await axios.get(`${baseUrl}/auth/validate`, {
                 withCredentials: true,
@@ -55,6 +58,8 @@ const AuthContextProvider = ({ children }) => {
       //         } else {
       //           console.log("Session error => ", error);
       //         }
+        } finally {
+          setLoading(false);
         }
     }
 
@@ -64,8 +69,14 @@ const AuthContextProvider = ({ children }) => {
    }, []);
 
     return(
-        <AuthContext.Provider value={{userData}}>
-            {children}
+        <AuthContext.Provider value={{userData, loading}}>
+          {loading ? (
+            <div>
+              <Loader/>
+            </div>
+          ) : (
+            children
+          )}
         </AuthContext.Provider>
     );
     
