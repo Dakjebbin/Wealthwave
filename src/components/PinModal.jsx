@@ -27,7 +27,6 @@ const PinModal = ({ setShowModal, onPinVerified }) => {
 
   const pinSubmit = import.meta.env.VITE_PIN
 
-  console.log(pinSubmit);
   
   const handlePinSubmit = () => {
     if (pin === pinSubmit) {

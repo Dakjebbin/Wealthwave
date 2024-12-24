@@ -12,8 +12,7 @@ const KYCForm = () => {
     try {
       // Simulate API call
       toast.success("KYC form submitted successfully!");
-      console.log(data);
-      console.log(file);
+      
     } catch (error) {
       toast.error("Error submitting KYC form.");
     }

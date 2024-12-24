@@ -62,7 +62,6 @@ const Confirmation = () => {
         withCredentials: true,
       });
 
-      console.log(response);
 
       if (response.status === 200) {
         toast.success("Image uploaded successfully!");

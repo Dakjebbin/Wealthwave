@@ -4,6 +4,7 @@ import "../styles/dash.css";
 import { FaArrowRightArrowLeft } from "react-icons/fa6";
 import { FaWallet } from "react-icons/fa6";
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Dashboard = () => {
   const { userData } = useAuthContext();
@@ -34,9 +35,9 @@ const Dashboard = () => {
 
       } catch (error) {
         if (error instanceof axios.AxiosError) {
-          console.log("Error fetching data:", error?.response?.data);
+          toast.error("Error fetching data:", error?.response?.data);
         } else {
-          console.log("Error:", error);
+          toast.error("Error:", error);
         }
       }
     };
