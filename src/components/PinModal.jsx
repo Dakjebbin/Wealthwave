@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
+import { toast } from 'react-toastify';
 
-const PinModal = ({ setShowModal }) => {
+const PinModal = ({ setShowModal, onPinVerified }) => {
   const [pin, setPin] = useState('');
   const [error, setError] = useState('');
   
@@ -24,11 +25,14 @@ const PinModal = ({ setShowModal }) => {
     };
   }, [setShowModal]);
 
+  const pinSubmit = import.meta.env.VITE_PIN
+
+  console.log(pinSubmit);
+  
   const handlePinSubmit = () => {
-    // Example PIN validation (replace with actual logic)
-    if (pin === '1234') {
-      alert('Withdrawal confirmed!');
-      setShowModal(false); // Close the modal on successful PIN entry
+    if (pin === pinSubmit) {
+      toast.success('Withdrawal confirmed!');
+      onPinVerified(pin);
     } else {
       setError('Invalid PIN. Please try again.');
     }

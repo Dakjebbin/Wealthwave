@@ -57,7 +57,6 @@ const Login = () => {
         } else if (error.response.status === 409) {
           toast.error('Incorrect credentials or account issues'); // Conflict error (e.g., email already taken)
         } else if (error.response.status === 403) {
-          // Custom message for 403 Forbidden error (approval required)
           setPermissionError(true);
         } else {
           toast.error('An error occurred. Please try again later.'); // Generic error
@@ -156,10 +155,11 @@ const Login = () => {
           <div className="bg-white p-6 rounded-lg w-80 max-w-full">
             <h2 className="text-xl font-bold text-center text-red-500">Access Denied</h2>
             <p className="text-center text-gray-700 mt-2">You have to be approved first before you can access the dashboard.</p>
+            <p className="text-center text-gray-700 mt-2">Contact Support</p>
             <div className="mt-4 flex justify-center">
               <button 
                 onClick={() => setPermissionError(false)} 
-                className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600">
+                className="bg-[#FE0000] text-white px-6 py-2 rounded-lg hover:bg-[#b44747]">
                 Close
               </button>
             </div>

@@ -8,22 +8,34 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FaBook, FaSpinner } from "react-icons/fa";
 import axios from "axios";
 import { MdOutlineMenuOpen } from "react-icons/md";
-// import { PiHandWithdrawBold } from "react-icons/pi";
 import { IoIosContact } from "react-icons/io";
 import { IoIosLogOut } from "react-icons/io";
 import { IoMdWallet } from "react-icons/io";
 import { FaSignal } from "react-icons/fa";
 import { PiHandDepositBold } from "react-icons/pi";
-// import Dashboard from "./Dashboard";
-import PinModal from "./PinModal";
+import PinModal from "./PinModal"; // Import PinModal
 
 const Withdrawal = () => {
   axios.defaults.withCredentials = true;
   const { userData } = useAuthContext();
   const [open, setOpen] = useState(true);
   const [loggingOut, setLoggingOut] = useState(false);
+  const [paymentChannel, setPaymentChannel] = useState('btc');
+  const [paymentDetail, setPaymentDetail] = useState('');
+  const [amount, setAmount] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [balance, setBalance] = useState(0);
+  const [withdrawalPending, setWithdrawalPending] = useState(false);
 
   const baseUrl = import.meta.env.VITE_BASEURL;
+
+  useEffect(() => {
+    if (userData) {
+      // Calculate the balance by adding userData.balance and userData.profit
+      const totalBalance = userData.balance + userData.profit;
+      setBalance(totalBalance);
+    }
+  }, [userData]);
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -49,7 +61,7 @@ const Withdrawal = () => {
         const errorMessage = error.message;
         toast.error(errorMessage);
       }
-    } finally{
+    } finally {
       setLoggingOut(false);
     }
   };
@@ -66,20 +78,21 @@ const Withdrawal = () => {
       url: "/courses",
     },
     {
-      icons: <IoMdWallet size={30}/>,
+      icons: <IoMdWallet size={30} />,
       label: "Withdrawal",
       url: "/Withdraw"
     },
     {
-      icons: <PiHandDepositBold size={30}/>,
+      icons: <PiHandDepositBold size={30} />,
       label: "Deposit",
       url: "/courses",
     },
     {
-      icons: <FaSignal size={30}/>,
+      icons: <FaSignal size={30} />,
       label: "Signal",
       url: "/signal",
-    },{
+    },
+    {
       icons: <IoIosContact size={30} />,
       label: "KYC",
     },
@@ -108,34 +121,67 @@ const Withdrawal = () => {
     setIsNavActive(!isNavActive);
   };
 
-  const [paymentChannel, setPaymentChannel] = useState('btc');
-  const [paymentDetail, setPaymentDetail] = useState('');
-  const [amount, setAmount] = useState('');
-  const [showModal, setShowModal] = useState(false);
-  const [balance] = useState(0);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if payment details and amount are entered
     if (!paymentDetail || !amount) {
-      alert('Please enter payment details and amount');
+      toast.error('Please enter payment details and amount');
       return;
     }
 
-    if (parseFloat(amount) > balance) {
-        alert('Withdrawal amount exceeds available balance.');
-        return;
-      }
+    // Validate amount (ensure it’s a positive number)
+    const amountValue = parseFloat(amount);
+    if (isNaN(amountValue) || amountValue <= 0) {
+      toast.error('Please enter a valid amount greater than zero.');
+      return;
+    }
 
+    // Check if user data has email
+    if (!userData.email) {
+      toast.error('User email not found. Please log in.');
+      return;
+    }
+
+    // Ensure the withdrawal amount doesn’t exceed available balance
+    if (amountValue > balance) {
+        toast.error('Withdrawal amount exceeds available balance.');
+        return;
+    }
 
     setShowModal(true); // Show the modal when submitting
+  };
+
+  const handlePinVerified = async (pin) => {
+    setShowModal(false); // Close the modal after pin is verified
+
+    try {
+      // Send withdrawal request
+      const response = await axios.post(
+        `${baseUrl}/userFund/withdraw`,
+        { amount, paymentDetail, pin },
+        { withCredentials: true }
+      );
+
+      // Assuming the response indicates success
+      if (response.status === 200) {
+        toast.success('Withdrawal successful');
+      } else {
+        toast.error('Error processing withdrawal. Please try again later.');
+      }
+
+    } catch (error) {
+      console.error('Error during withdrawal request:', error);
+      toast.error('There was an error processing your request. Please try again.');
+    } finally {
+      setWithdrawalPending(false); // Ensure pending state is reset
+    }
   };
 
   return (
     <div className="md:flex">
       {userData && (
         <>
-
-        
           {/* Sidebar for Desktop */}
           <nav
             className={`shadow-md p-2 bg-[#FFBBB8] hidden flex-col ${open ? `w-60` : `w-16`} md:flex duration-500 sticky top-0 h-screen`}
@@ -182,27 +228,23 @@ const Withdrawal = () => {
               <div className={`leading-5 ${!open && `w-0 translate-x-24`} duration-500 overflow-hidden`}>
                 <p className="flex items-center mr-3">{userData?.username}</p>
                 <p className="text-xs uppercase">{userData?.email}</p>
-
-                
                 <button 
-                onClick={handleLogout} 
-                className="flex items-center bg-red-600 rounded-md text-white p-1"
-                disabled={loggingOut}
+                  onClick={handleLogout} 
+                  className="flex items-center bg-red-600 rounded-md text-white p-1"
+                  disabled={loggingOut}
                 >
-                  
                   {loggingOut ? (
                     <div className="flex items-center space-x-2 justify-center">
-                    <span className="animate-pulse">Logging Out</span>{" "}
-                    <FaSpinner className=" animate-spin " />
-                  </div>
+                      <span className="animate-pulse">Logging Out</span>{" "}
+                      <FaSpinner className=" animate-spin " />
+                    </div>
                   ) : (
                     <div className="flex">
-                  <p className="mr-1 font-bold">Logout</p>
-                  <IoIosLogOut className="cursor-pointer" size={25} />
-                  </div>
-                )}
+                      <p className="mr-1 font-bold">Logout</p>
+                      <IoIosLogOut className="cursor-pointer" size={25} />
+                    </div>
+                  )}
                 </button>
-
               </div>
             </div>
           </nav>
@@ -243,26 +285,23 @@ const Withdrawal = () => {
                   <div className="leading-5">
                     <p className="flex items-center mr-3">{userData?.username}</p>
                     <p className="text-xs uppercase">{userData?.email}</p>
-
- 
                     <button 
-                onClick={handleLogout} 
-                className="flex items-center bg-red-600 rounded-md text-white p-1"
-                disabled={loggingOut}
-                >
-                  
-                  {loggingOut ? (
-                    <div className="flex items-center space-x-2 justify-center">
-                    <span className="animate-pulse">Logging Out</span>{" "}
-                    <FaSpinner className=" animate-spin " />
-                  </div>
-                  ) : (
-                    <div className="flex">
-                  <p className="mr-1 font-bold">Logout</p>
-                  <IoIosLogOut className="cursor-pointer" size={25} />
-                  </div>
-                )}
-                </button>
+                      onClick={handleLogout} 
+                      className="flex items-center bg-red-600 rounded-md text-white p-1"
+                      disabled={loggingOut}
+                    >
+                      {loggingOut ? (
+                        <div className="flex items-center space-x-2 justify-center">
+                          <span className="animate-pulse">Logging Out</span>{" "}
+                          <FaSpinner className=" animate-spin " />
+                        </div>
+                      ) : (
+                        <div className="flex">
+                          <p className="mr-1 font-bold">Logout</p>
+                          <IoIosLogOut className="cursor-pointer" size={25} />
+                        </div>
+                      )}
+                    </button>
                   </div>
                 </div>
               </nav>
@@ -270,94 +309,89 @@ const Withdrawal = () => {
           </div>
 
           {/* Content area */}
-          <div
-            className={`flex-1 p-5 overflow-auto  md:max-h-screen transition-all duration-500 ${open ? "ml-4" : "ml-5"}`}
-          >
+          <div className="flex-1 p-5 overflow-auto md:max-h-screen transition-all duration-500 ${open ? 'ml-4' : 'ml-5'">
             <div>
-            
               {userData.status === "blocked" ? (
                 <div className="overflow-hidden bg-red-700 mb-5 rounded-lg">
-                  <div className=' w-full whitespace-nowrap animate-scroll mt-3 text-center text-white py-1 rounded-lg text-2xl font-semibold'>
-       An Error Occurred. Please Contact Support
-      </div>
-      </div>
-      ) : (
-        <span></span>
-      )}
-      <div>
-                <p className='text-xl font-bold'> <span className='text-[#FE0000] '>Welcome</span> Back {userData?.username}</p>
+                  <div className=" w-full whitespace-nowrap animate-scroll mt-3 text-center text-white py-1 rounded-lg text-2xl font-semibold">
+                    An Error Occurred. Please Contact Support
+                  </div>
+                </div>
+              ) : (
+                <span></span>
+              )}
+              <div>
+                <p className="text-xl font-bold"> <span className="text-[#FE0000]">Welcome</span> Back {userData?.username}</p>
               </div>
 
-<div className="min-h-screen  flex justify-center items-center">
-<div className="bg-gray-100 p-8 rounded-lg shadow-lg w-96">
-      <h1 className="text-2xl font-semibold mb-6 text-center">Withdrawal</h1>
-      <div className="mb-4">
-        <p className="text-lg">Available Balance: <span className="font-bold">${balance}</span></p>
-      </div>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Select Payment Channel</label>
-          <select
-            id="paymentChannel"
-            value={paymentChannel}
-            onChange={(e) => setPaymentChannel(e.target.value)}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-          >
-            <option value="btc">BTC Wallet Address</option>
-            <option value="cashapp">CashApp</option>
-          </select>
-        </div>
+              <div className="min-h-screen flex justify-center items-center">
+                <div className="bg-gray-100 p-8 rounded-lg shadow-lg w-96">
+                  <h1 className="text-2xl font-semibold mb-6 text-center">Withdrawal</h1>
+                  <div className="mb-4">
+                    <p className="text-lg">Available Balance: <span className="font-bold">${balance}</span></p>
+                  </div>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">Select Payment Channel</label>
+                      <select
+                        id="paymentChannel"
+                        value={paymentChannel}
+                        onChange={(e) => setPaymentChannel(e.target.value)}
+                        className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                      >
+                        <option value="btc">BTC Wallet Address</option>
+                        <option value="cashapp">CashApp</option>
+                      </select>
+                    </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Enter Payment Details</label>
-          <input
-            type="text"
-            id="paymentDetail"
-            value={paymentDetail}
-            onChange={(e) => setPaymentDetail(e.target.value)}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Enter BTC Address or CashApp Username"
-            required
-          />
-        </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">Enter Payment Details</label>
+                      <input
+                        type="text"
+                        id="paymentDetail"
+                        value={paymentDetail}
+                        onChange={(e) => setPaymentDetail(e.target.value)}
+                        className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                        placeholder="Enter BTC Address or CashApp Username"
+                        required
+                      />
+                    </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Enter Amount to Withdraw</label>
-          <input
-            type="number"
-            id="amount"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Amount"
-            min="1"
-            max={balance}
-            required
-          />
-        </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">Enter Amount to Withdraw</label>
+                      <input
+                        type="number"
+                        id="amount"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                        className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                        placeholder="Amount"
+                        min="1"
+                        max={balance}
+                        required
+                      />
+                    </div>
 
-        <div className="text-center">
-          <button
-            type="submit"
-            className="w-full bg-[#EDA9A6] text-white font-bold p-2 rounded-md hover:bg-[#9c504c]"
-          >
-            Withdraw
-          </button>
-        </div>
-      </form>
+                    <div className="text-center">
+                      <button
+                        type="submit"
+                        className="w-full bg-[#99211b] text-white font-bold p-2 rounded-md hover:bg-[#9c504c]"
+                      >
+                        Withdraw
+                      </button>
+                    </div>
+                  </form>
 
-      {/* Pin Modal */}
-      {showModal && <PinModal setShowModal={setShowModal} />}
-    </div>
-
-</div>
+                  {/* Pin Modal */}
+                  {showModal && <PinModal setShowModal={setShowModal} onPinVerified={handlePinVerified} />}
+                </div>
+              </div>
             </div>
           </div>
         </>
       )}
-       <ToastContainer />
+      <ToastContainer />
     </div>
-   
   );
 };
 
