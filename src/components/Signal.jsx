@@ -81,6 +81,7 @@ const Sidebar = () => {
     },{
       icons: <IoIosContact size={30} />,
       label: "KYC",
+      url: "/kyc",
     },
   ];
 

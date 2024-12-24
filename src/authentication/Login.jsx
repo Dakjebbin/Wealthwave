@@ -154,8 +154,6 @@ const Login = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded-lg w-80 max-w-full">
             <h2 className="text-xl font-bold text-center text-red-500">Access Denied</h2>
-            <p className="text-center text-gray-700 mt-2">You have to be approved first before you can access the dashboard.</p>
-            <p className="text-center text-gray-700 mt-2">Contact Support</p>
             <div className="mt-4 flex justify-center">
               <button 
                 onClick={() => setPermissionError(false)} 
