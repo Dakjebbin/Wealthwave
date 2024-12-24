@@ -1,11 +1,11 @@
-import { useState } from "react";
+
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const KYCForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const [file, setFile] = useState(null);
+
 
   const onSubmit = async (data) => {
     // Handle form submission
@@ -14,16 +14,11 @@ const KYCForm = () => {
       toast.success("KYC form submitted successfully!");
       
     } catch (error) {
-      toast.error("Error submitting KYC form.");
+      toast.error( error || "Error submitting KYC form.");
     }
   };
 
-  const handleFileChange = (e) => {
-    const uploadedFile = e.target.files[0];
-    if (uploadedFile) {
-      setFile(uploadedFile);
-    }
-  };
+  
 
   return (
     <div className="container mx-auto my-5 p-5">
@@ -80,17 +75,6 @@ const KYCForm = () => {
           {errors.address && <p className="text-red-500 text-xs">{errors.address.message}</p>}
         </div>
 
-        {/* KYC Document Upload */}
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Upload KYC Document (ID or Utility Bill)</label>
-          <input
-            type="file"
-            accept="image/*"
-            className="w-full p-2 border border-gray-300 rounded-md"
-            onChange={handleFileChange}
-          />
-          {file && <p className="text-green-500 text-sm mt-2">File: {file.name}</p>}
-        </div>
 
         {/* Submit Button */}
         <div className="text-center">

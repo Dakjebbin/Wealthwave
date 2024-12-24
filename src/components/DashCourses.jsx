@@ -82,6 +82,7 @@ const DashCourses = () => {
     },{
       icons: <IoIosContact size={30} />,
       label: "KYC",
+      url: "/kyc",
     },
   ];
  

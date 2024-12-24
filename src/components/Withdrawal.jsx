@@ -25,7 +25,7 @@ const Withdrawal = () => {
   const [amount, setAmount] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [balance, setBalance] = useState(0);
-  const [withdrawalPending, setWithdrawalPending] = useState(false);
+  const [setWithdrawalPending] = useState(false);
 
   const baseUrl = import.meta.env.VITE_BASEURL;
 
@@ -95,6 +95,7 @@ const Withdrawal = () => {
     {
       icons: <IoIosContact size={30} />,
       label: "KYC",
+      url: "/kyc",
     },
   ];
 

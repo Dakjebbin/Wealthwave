@@ -14,9 +14,9 @@ import { IoIosLogOut } from "react-icons/io";
 import { IoMdWallet } from "react-icons/io";
 import { FaSignal } from "react-icons/fa";
 import { PiHandDepositBold } from "react-icons/pi";
-import Dashboard from "./Dashboard";
+import KYCForm from "./Kyc";
 
-const Sidebar = () => {
+const Kycsidebar = () => {
   axios.defaults.withCredentials = true;
   const { userData } = useAuthContext();
   const [open, setOpen] = useState(true);
@@ -249,7 +249,7 @@ const Sidebar = () => {
           <div
             className={`flex-1 p-5 overflow-auto  md:max-h-screen transition-all duration-500 ${open ? "ml-4" : "ml-5"}`}
           >
-            <Dashboard />
+          <KYCForm/>
           </div>
         </>
       )}
@@ -259,4 +259,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default Kycsidebar;

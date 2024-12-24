@@ -22,6 +22,7 @@ import Confirmation from './components/Confirmation.jsx'
 import Withdrawal from './components/Withdrawal.jsx'
 import Signal from './components/Signal.jsx'
 import KYCForm from './components/Kyc.jsx'
+import Kycsidebar from './components/KycSidebar.jsx'
 
 
 
@@ -81,7 +82,7 @@ const router = createBrowserRouter([
         element: <Signal/>
       },{
         path:"/kyc",
-        element: <KYCForm/>
+        element: <Kycsidebar/>
       }
      
   
